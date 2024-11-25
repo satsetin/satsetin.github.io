@@ -1,39 +1,62 @@
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!--========== BULMA CSS ==========-->
-        <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css">
-        <!--========== FA ICONS ==========-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gobiz - Master</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Tambahkan CSS Global Anda di sini */
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div id="navbar-container"></div>
 
-        <!--========== BOX ICONS ==========-->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- Kontainer Dinamis -->
+    <div id="content-container"></div>
 
-        <!--========== CSS ==========-->
-        <link rel="stylesheet" href="assets/css/styles.css">
-        <link rel="stylesheet" href="assets/css/admin.css">
-        <link rel="stylesheet" href="assets/css/forum.css">
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2024 Gobiz. All Rights Reserved.</p>
+    </footer>
 
-        <title>JSCroot Template Skeleton</title>
-    </head>
-    <body>
-        <!--========== HEADER ==========-->
-        <header class="header">
-            <div class="header__container" id="header__container">
-            </div>
-        </header>
+    <!-- Skrip untuk Navbar -->
+    <script type="module">
+      import loadNavbar from "https://chekoutgobiz.github.io/fe_web/base/jscroot/controller/load-navbar.js";
+      loadNavbar("navbar-container");
+    </script>
 
-        <!--========== NAV ==========-->
-        <div class="nav" id="navbar">
-        </div>
+    <!-- Skrip untuk Konten Dinamis -->
+    <script type="module">
+      import {
+        getContentURL,
+        getData,
+      } from "https://chekoutgobiz.github.io/fe_web/base/jscroot/url/content.js";
 
-        <!--========== CONTENTS ==========-->
-        <main id="content">
-        </main>
+      async function loadPage() {
+        const contentContainer = document.getElementById("content-container");
+        try {
+          const content = await getData(); // Memuat konten dinamis
+          contentContainer.innerHTML = content;
+        } catch (error) {
+          console.error("Error loading content:", error);
+          contentContainer.innerHTML = "<p>Failed to load content.</p>";
+        }
+      }
 
-        <!--========== jscroot ==========-->
-        <script src="jscroot/index.js" type="module"></script>
-    </body>
+      // Dengarkan perubahan hash
+      window.addEventListener("hashchange", loadPage);
+
+      // Muat konten pertama kali
+      loadPage();
+    </script>
+  </body>
 </html>
