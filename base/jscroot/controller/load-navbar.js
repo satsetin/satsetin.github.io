@@ -1,7 +1,7 @@
 // load-navbar.js
 import { url } from "https://chekoutgobiz.github.io/fe_web/base/jscroot/url/config.js";
 
-
+console.log("loadNavbar.js loaded");
 export async function loadNavbar(containerId = "navbar-container") {
     try {
         // Dapatkan URL file navbar.html dari konfigurasi
