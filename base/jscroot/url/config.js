@@ -20,7 +20,7 @@ export const url={
     },
     controller:{
         main : folder.controller+"main.js",
-        navbar : folder.controller+"navbar.js"
+        navbar : folder.controller+"load-navbar.js"
     },
     view : {
         content:folder.view+"content/",
