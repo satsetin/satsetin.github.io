@@ -1,27 +1,21 @@
-/*==================== SHOW NAVBAR ====================*/
-export function showMenu(headerToggle, navbarId){
-    const toggleBtn = document.getElementById(headerToggle);
-    const nav = document.getElementById(navbarId);
-    
-    // Validate that variables exist
-    if(headerToggle && navbarId){
-        toggleBtn.addEventListener('click', ()=>{
-            // We add the show-menu class to the div tag with the nav__menu class
-            nav.classList.toggle('show-menu')
-            // change icon
-            toggleBtn.classList.toggle('bx-x')
-        })
+// load-navbar.js
+import { url } from "https://chekoutgobiz.github.io/fe_web/base/jscroot/url/config.js";
+
+
+export async function loadNavbar(containerId = "navbar-container") {
+    try {
+        // Dapatkan URL file navbar.html dari konfigurasi
+        const response = await fetch(url.template.navbar);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const navbarHTML = await response.text();
+
+        // Sisipkan konten ke dalam elemen dengan id yang ditentukan
+        document.getElementById(containerId).innerHTML = navbarHTML;
+    } catch (error) {
+        console.error("Error loading navbar:", error);
+        document.getElementById(containerId).innerHTML =
+            "<p>Failed to load navbar. Please try again later.</p>";
     }
-
 }
-//showMenu('header-toggle','navbar')
-
-/*==================== LINK ACTIVE ====================*/
-export function activeLink(className){//'.nav__link'
-    const linkColor = document.querySelectorAll(className);
-    linkColor.forEach(l => {l.addEventListener('click', function() { 
-        linkColor.forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-    } );});
-}
-
