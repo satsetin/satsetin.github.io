@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gobiz - Cart</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+      }
+
+      header {
+        background-color: #343a40;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+      }
+
+      header .logo {
+        font-size: 1.5rem;
+        color: #ffc107;
+        text-decoration: none;
+      }
+
+      nav a {
+        margin-left: 20px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 1rem;
+      }
+
+      nav a.active {
+        font-weight: bold;
+        color: #ffc107;
+      }
+
+      h2 {
+        text-align: center;
+        margin-top: 20px;
+        color: #343a40;
+      }
+
+      .cart {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
+
+      .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .cart-item:last-child {
+        border-bottom: none;
+      }
+
+      .cart-item img {
+        width: 100px;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .cart-item h3 {
+        font-size: 1.2rem;
+        margin: 0;
+      }
+
+      .cart-item p {
+        margin: 5px 0;
+        color: #6c757d;
+      }
+
+      .quantity-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .quantity-controls button {
+        background-color: #ffc107;
+        color: #343a40;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+
+      .quantity-controls button:hover {
+        background-color: #e0a800;
+      }
+
+      .total {
+        text-align: right;
+        margin-top: 20px;
+        font-size: 1.2rem;
+        color: #343a40;
+      }
+
+      .empty-cart {
+        text-align: center;
+        color: #6c757d;
+        font-size: 1.2rem;
+        margin-top: 20px;
+      }
+
+      .btn-back,
+      .btn-checkout {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #ffc107;
+        color: #343a40;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        max-width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .btn-checkout {
+        background-color: #28a745;
+        margin-top: 10px;
+      }
+
+      .btn-checkout:hover {
+        background-color: #218838;
+      }
+
+      .btn-back:hover {
+        background-color: #e0a800;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="index.html" class="logo">Gobiz</a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="product.html">Product</a>
+        <a href="cart.html" class="active">Cart</a>
+      </nav>
+    </header>
+
+    <section class="cart">
+      <h2>Keranjang Belanja</h2>
+      <div id="cart-items"></div>
+      <p class="total" id="cart-total">Total: Rp.0</p>
+      <a href="product.html" class="btn-back">Kembali Belanja</a>
+      <a href="checkout.html" class="btn-checkout" id="checkout-btn"
+        >Checkout</a
+      >
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const cartItemsContainer = document.getElementById("cart-items");
+        const cartTotalElement = document.getElementById("cart-total");
+        const checkoutBtn = document.getElementById("checkout-btn");
+        const userID = "user123"; // Anda bisa mendapatkan userID dari session atau parameter URL
+
+        // Fungsi untuk menghitung total harga
+        function calculateTotal(cart) {
+          return cart.reduce(
+            (total, item) => total + item.price * item.quantity,
+            0
+          );
+        }
+
+        // Fungsi untuk menambahkan jumlah produk
+        function increaseQuantity(index) {
+          cart[index].quantity += 1;
+          renderCart(cart);
+        }
+
+        // Fungsi untuk mengurangi jumlah produk
+        function decreaseQuantity(index) {
+          if (cart[index].quantity > 1) {
+            cart[index].quantity -= 1;
+          } else {
+            cart.splice(index, 1);
+          }
+          renderCart(cart);
+        }
+
+        // Fungsi untuk menampilkan keranjang
+        function renderCart(cart) {
+          cartItemsContainer.innerHTML = "";
+
+          if (cart.length === 0) {
+            cartItemsContainer.innerHTML =
+              '<p class="empty-cart">Keranjang Anda kosong.</p>';
+            cartTotalElement.textContent = "Total: Rp.0";
+            checkoutBtn.style.display = "none";
+            return;
+          }
+
+          checkoutBtn.style.display = "block";
+
+          cart.forEach((item, index) => {
+            const cartItem = `
+              <div class="cart-item">
+                <img src="img/${item.name
+                  .toLowerCase()
+                  .replace(" ", "")}.jpg" alt="${item.name}">
+                <div>
+                  <h3>${item.name}</h3>
+                  <p>Harga Satuan: Rp.${item.price}</p>
+                  <p>Total Harga: Rp.${item.price * item.quantity}</p>
+                </div>
+                <div class="quantity-controls">
+                  <button class="decrease-btn" data-index="${index}">-</button>
+                  <span>${item.quantity}</span>
+                  <button class="increase-btn" data-index="${index}">+</button>
+                </div>
+              </div>
+            `;
+            cartItemsContainer.insertAdjacentHTML("beforeend", cartItem);
+          });
+
+          cartTotalElement.textContent = `Total: Rp.${calculateTotal(cart)}`;
+        }
+
+        // Ambil data keranjang dari API
+        fetch(`/cart?userID=${userID}`)
+          .then((response) => response.json())
+          .then((data) => {
+            renderCart(data);
+          })
+          .catch((error) => {
+            console.error("Error fetching cart:", error);
+          });
+      });
+    </script>
+  </body>
+</html>
