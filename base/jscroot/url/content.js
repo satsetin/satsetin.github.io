@@ -6,7 +6,7 @@ export function getContentURL(){
     let hashlink = getHash();
     switch (hashlink) {
         case "home":
-            return url.content + "home.html";
+            return url.content + "home/home.html";
         case "profile/passwords":
             return url.content + "profile/passwords.html";
         case "profile/mail":
@@ -36,7 +36,7 @@ export function getContentURL(){
         case "product": // Tambahkan rute untuk halaman product
             return url.content + "product/product.html";
         default:
-            return url.content + "home.html";
+            return url.content + "home/home.html";
     }
 }
 
@@ -73,8 +73,9 @@ export function getURLContentJS(){
             return url.contentview + "cart.js";
         case "product": // Tambahkan rute untuk script halaman product
             return url.contentview + "product.js";
-        default:
-            return url.contentview + "home.js";
+            default:
+                return null;
+            
     }
 }
 
