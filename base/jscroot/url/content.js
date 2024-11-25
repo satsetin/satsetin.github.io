@@ -1,89 +1,89 @@
-import {getHash} from "https://cdn.jsdelivr.net/gh/jscroot/url@0.0.2/croot.js";
-// Please change https://jscroot.github.io/template/base/ into your base url
+import { getHash } from "https://cdn.jsdelivr.net/gh/jscroot/url@0.0.2/croot.js";
 import { url } from "https://chekoutgobiz.github.io/fe_web/base/jscroot/url/config.js";
 
-export function getContentURL(){
-    let hashlink = getHash();
+// Mendapatkan URL Konten Berdasarkan Hash
+export function getContentURL() {
+    let hashlink = getHash() || "home"; // Default ke "home" jika hash kosong
     switch (hashlink) {
         case "home":
-            return url.content + "home/home.html";
+            return url.template.content + "home/home.html";
         case "profile/passwords":
-            return url.content + "profile/passwords.html";
+            return url.template.content + "profile/passwords.html";
         case "profile/mail":
-            return url.content + "profile/mail.html";
+            return url.template.content + "profile/mail.html";
         case "profile/accounts":
-            return url.content + "profile/accounts.html";
+            return url.template.content + "profile/accounts.html";
         case "messages":
-            return url.content + "messages.html";
+            return url.template.content + "messages.html";
         case "notifications/blocked":
-            return url.content + "notifications/blocked.html";
+            return url.template.content + "notifications/blocked.html";
         case "notifications/silenced":
-            return url.content + "notifications/silenced.html";
+            return url.template.content + "notifications/silenced.html";
         case "notifications/publish":
-            return url.content + "notifications/publish.html";
+            return url.template.content + "notifications/publish.html";
         case "notifications/program":
-            return url.content + "notifications/program.html";
+            return url.template.content + "notifications/program.html";
         case "explore":
-            return url.content + "explore.html";
+            return url.template.content + "explore.html";
         case "saved":
-            return url.content + "saved.html";
+            return url.template.content + "saved.html";
         case "logout":
-            return url.content + "logout.html";
+            return url.template.content + "logout.html";
         case "login":
-            return url.content + "login/login.html"; // Tambahkan rute untuk halaman login
+            return url.template.content + "login/login.html"; // Rute login
         case "cart":
-            return url.content + "cart/cart.html"; 
-        case "product": // Tambahkan rute untuk halaman product
-            return url.content + "product/product.html";
+            return url.template.content + "cart/cart.html";
+        case "product":
+            return url.template.content + "product/product.html";
         default:
-            return url.content + "home/home.html";
+            return url.template.content + "home/home.html"; // Fallback ke "home"
     }
 }
 
-export function getURLContentJS(){
-    let hashlink = getHash();
+// Mendapatkan URL Script JS Berdasarkan Hash
+export function getURLContentJS() {
+    let hashlink = getHash() || "home"; // Default ke "home" jika hash kosong
     switch (hashlink) {
         case "home":
-            return url.contentview + "home.js";
+            return url.view.content + "home.js";
         case "profile/passwords":
-            return url.contentview + "profile/passwords.js";
+            return url.view.content + "profile/passwords.js";
         case "profile/mail":
-            return url.contentview + "profile/mail.js";
+            return url.view.content + "profile/mail.js";
         case "profile/accounts":
-            return url.contentview + "profile/accounts.js";
+            return url.view.content + "profile/accounts.js";
         case "messages":
-            return url.contentview + "messages.js";
+            return url.view.content + "messages.js";
         case "notifications/blocked":
-            return url.contentview + "notifications/blocked.js";
+            return url.view.content + "notifications/blocked.js";
         case "notifications/silenced":
-            return url.contentview + "notifications/silenced.js";
+            return url.view.content + "notifications/silenced.js";
         case "notifications/publish":
-            return url.contentview + "notifications/publish.js";
+            return url.view.content + "notifications/publish.js";
         case "notifications/program":
-            return url.contentview + "notifications/program.js";
+            return url.view.content + "notifications/program.js";
         case "explore":
-            return url.contentview + "explore.js";
+            return url.view.content + "explore.js";
         case "saved":
-            return url.contentview + "saved.js";
+            return url.view.content + "saved.js";
         case "logout":
-            return url.contentview + "logout.js";
+            return url.view.content + "logout.js";
         case "login":
-            return url.contentview + "login.js"; // Script untuk login jika diperlukan
+            return url.view.content + "login.js";
         case "cart":
-            return url.contentview + "cart.js";
-        case "product": // Tambahkan rute untuk script halaman product
-            return url.contentview + "product.js";
-            default:
-                return null;
-            
+            return url.view.content + "cart.js";
+        case "product":
+            return url.view.content + "product.js";
+        default:
+            return null;
     }
 }
 
-// Tambahkan fungsi getData di sini
+// Mendapatkan Data dari URL Konten
 export async function getData() {
-    const url = getContentURL(); // Panggil fungsi untuk mendapatkan URL konten
+    const contentURL = getContentURL(); // Panggil fungsi untuk mendapatkan URL konten
     try {
-        const response = await fetch(url);
+        const response = await fetch(contentURL);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
