@@ -172,50 +172,8 @@
   </style>
 
   <body>
-    <!-- Header -->
-    <header>
-      <a href="index.html" class="logo"
-        ><img src="img/logo.webp" alt="Gobiz Logo"
-      /></a>
-      <ul class="navbar">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">Region</a></li>
-        <li><a href="product.html" class="active">Product</a></li>
-        <li><a href="cart.html">Cart</a></li>
-      </ul>
-      <div class="icons-item">
-        <!-- Icon Pencarian -->
-        <div
-          class="icon-item"
-          style="position: relative; display: inline-block"
-        >
-          <a href="#" id="search-icon"><i class="ri-search-line"></i></a>
-          <span>Search</span>
-          <!-- Kolom Pencarian -->
-          <div
-            id="search-container"
-            style="display: none; position: absolute; left: 0; top: 30px"
-          >
-            <input
-              type="text"
-              placeholder="Search here..."
-              id="search-box"
-              style="padding: 5px; width: 200px"
-            />
-          </div>
-        </div>
-
-        <!-- Icon Keranjang -->
-        <div
-          class="icon-item"
-          style="position: relative; display: inline-block; margin-left: 20px"
-        >
-          <a href="cart.html"><i class="ri-shopping-cart-line"></i></a>
-          <span class="cart-notification">0</span>
-          <!-- Notifikasi Keranjang -->
-        </div>
-      </div>
-    </header>
+    <!-- Tempat untuk Navbar -->
+    <div id="navbar-container"></div>
 
     <!-- Product Grid Section -->
     <section class="product-section">
@@ -332,6 +290,8 @@
 
         updateCartNotification(); // Inisialisasi notifikasi keranjang
       });
+      import { loadNavbar } from "https://jscroot.github.io/template/base/jscroot/controller/load-navbar.js";
+      loadNavbar("navbar-container");
     </script>
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

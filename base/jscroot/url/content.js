@@ -1,6 +1,6 @@
 import {getHash} from "https://cdn.jsdelivr.net/gh/jscroot/url@0.0.2/croot.js";
 // Please change https://jscroot.github.io/template/base/ into your base url
-import { url } from "https://jscroot.github.io/template/base/jscroot/url/config.js";
+import { url } from "https://chekoutgobiz.github.io/fe_web/base/jscroot/url/config.js";
 
 export function getContentURL(){
     let hashlink = getHash();

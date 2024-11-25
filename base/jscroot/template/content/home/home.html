@@ -113,14 +113,8 @@
     </style>
   </head>
   <body>
-    <header>
-      <a href="index.html" class="logo">Gobiz</a>
-      <nav>
-        <a href="#home" class="active">Home</a>
-        <a href="#product">Product</a>
-        <a href="#cart">Cart</a>
-      </nav>
-    </header>
+    <!-- Container untuk Navbar -->
+    <div id="navbar-container"></div>
 
     <section class="hero">
       <h1>Welcome to Gobiz</h1>
@@ -147,5 +141,11 @@
         </p>
       </div>
     </section>
+    <script type="module">
+      import { loadNavbar } from "https://chekoutgobiz.github.io/fe_web/base/jscroot/controller/load-navbar.js";
+
+      // Muat navbar ke elemen dengan id "navbar-container"
+      loadNavbar("navbar-container");
+    </script>
   </body>
 </html>
