@@ -1,73 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <style>
-        :root {
-  --border-width: 7px;
-}
+      :root {
+        --border-width: 7px;
+      }
 
-* {
-  margin: 0;
-  padding: 0;
-}
+      * {
+        margin: 0;
+        padding: 0;
+      }
 
-body {
-  background-color: #eb4a62;
-}
+      body {
+        background-color: #eb4a62;
+      }
 
-.sec-loading {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+      .sec-loading {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-.sec-loading .one {
-  height: 80px;
-  width: 80px;
-  border: var(--border-width) solid white;
-  transform: rotate(45deg);
-  border-radius: 0 50% 50% 50%;
-  position: relative;
-  animation: move 0.5s linear infinite alternate-reverse;
-}
-.sec-loading .one::before {
-  content: "";
-  position: absolute;
-  height: 55%;
-  width: 55%;
-  border-radius: 50%;
-  border: var(--border-width) solid transparent;
-  border-top-color: white;
-  border-bottom-color: white;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: rotate 1s linear infinite;
-}
+      .sec-loading .one {
+        height: 80px;
+        width: 80px;
+        border: var(--border-width) solid white;
+        transform: rotate(45deg);
+        border-radius: 0 50% 50% 50%;
+        position: relative;
+        animation: move 0.5s linear infinite alternate-reverse;
+      }
 
-@keyframes rotate {
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-@keyframes move {
-  to {
-    transform: translateY(15px) rotate(45deg);
-  }
-}
+      .sec-loading .one::before {
+        content: "";
+        position: absolute;
+        height: 55%;
+        width: 55%;
+        border-radius: 50%;
+        border: var(--border-width) solid transparent;
+        border-top-color: white;
+        border-bottom-color: white;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: rotate 1s linear infinite;
+      }
 
+      @keyframes rotate {
+        to {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      @keyframes move {
+        to {
+          transform: translateY(15px) rotate(45deg);
+        }
+      }
+
+      /* Tambahkan gaya untuk konten utama */
+      .hidden {
+        display: none;
+      }
+
+      #navbar-container,
+      #content-container {
+        display: none; /* Sembunyikan kontainer sampai loading selesai */
+      }
+
+      #navbar-container.visible,
+      #content-container.visible {
+        display: block; /* Tampilkan setelah loading selesai */
+      }
     </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading...</title>
-</head>
-<body>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gobiz - Master Template</title>
+  </head>
+  <body>
+    <!-- Animasi Loading -->
     <section class="sec-loading">
-        <div class="one">
-        </div>
-      </section>
-      <script src="./index.js" type="module"></script>
-</body>
+      <div class="one"></div>
+    </section>
+
+    <!-- Navbar -->
+    <div id="navbar-container" class="hidden"></div>
+
+    <!-- Kontainer Dinamis -->
+    <div id="content-container" class="hidden"></div>
+
+    <!-- Footer -->
+    <footer class="hidden">
+      <p>&copy; 2024 Gobiz. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Script untuk Memuat Konten -->
+    <script type="module">
+      import loadNavbar from "https://chekoutgobiz.github.io/fe_web/base/jscroot/controller/load-navbar.js";
+      import {
+        getContentURL,
+        getData,
+      } from "https://chekoutgobiz.github.io/fe_web/base/jscroot/url/content.js";
+
+      async function initializePage() {
+        const navbarContainer = document.getElementById("navbar-container");
+        const contentContainer = document.getElementById("content-container");
+        const loadingSection = document.querySelector(".sec-loading");
+        const footer = document.querySelector("footer");
+
+        try {
+          // Muat Navbar
+          await loadNavbar("navbar-container");
+          navbarContainer.classList.add("visible");
+
+          // Muat Halaman Dinamis
+          async function loadPage() {
+            const content = await getData();
+            contentContainer.innerHTML = content;
+            contentContainer.classList.add("visible");
+          }
+
+          // Dengarkan perubahan hash
+          window.addEventListener("hashchange", loadPage);
+
+          // Muat konten awal
+          await loadPage();
+
+          // Hapus Loading
+          loadingSection.style.display = "none";
+          footer.classList.remove("hidden");
+        } catch (error) {
+          console.error("Error initializing page:", error);
+          loadingSection.innerHTML =
+            "<p>Failed to load the page. Please refresh.</p>";
+        }
+      }
+
+      // Inisialisasi Halaman
+      initializePage();
+    </script>
+  </body>
 </html>
