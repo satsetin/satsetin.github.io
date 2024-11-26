@@ -1,3 +1,5 @@
+// load-navbar.js
+
 import { url } from "https://chekoutgobiz.github.io/fe_web/base/jscroot/url/config.js";
 
 async function loadNavbar(containerId = "navbar-container") {
@@ -15,4 +17,4 @@ async function loadNavbar(containerId = "navbar-container") {
     }
 }
 
-loadNavbar(); // Panggil fungsi loadNavbar
+export default loadNavbar;  // Menambahkan ekspor default

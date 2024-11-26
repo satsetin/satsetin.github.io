@@ -1,20 +1,5 @@
 import { getHash } from "https://cdn.jsdelivr.net/gh/jscroot/url@0.0.2/croot.js";
 import { url } from "https://chekoutgobiz.github.io/fe_web/base/jscroot/url/config.js";
-import { getData } from "https://chekoutgobiz.github.io/fe_web/base/jscroot/url/content.js"; // Pastikan path ini benar
-
-// Fungsi untuk Memuat Konten ke dalam Halaman
-export async function loadContent() {
-    const contentContainer = document.getElementById("content-container");
-    if (contentContainer) {
-        const content = await getData(); // Memanggil data HTML dari fungsi getData()
-        contentContainer.innerHTML = content; // Memasukkan konten ke dalam elemen #content-container
-    } else {
-        console.error("Element #content-container tidak ditemukan.");
-    }
-}
-
-// Panggil loadContent() ketika halaman dimuat
-loadContent();
 
 // Mendapatkan URL Konten Berdasarkan Hash
 export function getContentURL() {
