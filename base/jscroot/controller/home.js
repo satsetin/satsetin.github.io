@@ -7,3 +7,7 @@ export function init() {
         });
     }
 }
+
+export function loadHome() {
+    init();  // Pastikan tombol dieksekusi di halaman home
+}

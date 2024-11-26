@@ -15,4 +15,4 @@ async function loadNavbar(containerId = "navbar-container") {
     }
 }
 
-export default loadNavbar;
+loadNavbar(); // Panggil fungsi loadNavbar
