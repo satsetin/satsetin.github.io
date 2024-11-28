@@ -1,9 +1,10 @@
 const loginForm = document.getElementById('loginForm');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
-const loadingIndicator = document.getElementById('loading'); // Menyimpan spinner
-const errorMessage = document.getElementById('error-message'); // Elemen error message
+const loadingIndicator = document.getElementById('loading'); // Spinner loading
+const errorMessage = document.getElementById('error-message'); // Pesan error
 
+// Menangani Submit Form Login
 loginForm.addEventListener('submit', async (event) => {
   event.preventDefault();
 
@@ -17,42 +18,48 @@ loginForm.addEventListener('submit', async (event) => {
     return;
   }
 
-  // Tampilkan loading spinner
+  // Menampilkan loading spinner
   loadingIndicator.style.display = 'block';
 
-  // Kirim request login ke endpoint API
-  const response = await fetch('http://localhost:8080/api/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-    }),
-  });
+  try {
+    // Mengirim permintaan login ke API
+    const response = await fetch('http://localhost:8080/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: email, password: password }),
+    });
 
-  // Sembunyikan spinner setelah request selesai
-  loadingIndicator.style.display = 'none';
+    // Sembunyikan spinner setelah request selesai
+    loadingIndicator.style.display = 'none';
 
-  // Memeriksa apakah login berhasil
-  if (response.ok) {
-    const data = await response.json();
-    console.log("Response data:", data); // Debugging: cek respons data
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Data Login:", data); // Debugging: cek data respons
 
-    if (data.token) {
-      // Simpan token ke localStorage
-      localStorage.setItem('authToken', data.token);
-      console.log("Token disimpan:", data.token);  // Debugging: cek token yang disimpan
+      // Periksa apakah token ada dalam respons
+      if (data.token) {
+        // Simpan token ke localStorage
+        localStorage.setItem('authToken', data.token);
+        console.log("Token Disimpan:", data.token); // Debugging: cek token yang disimpan
 
-      // Redirect ke halaman home jika login berhasil
-      window.location.hash = '#home'; // Ganti hash URL ke "home"
+        // Redirect ke halaman home setelah login berhasil
+        window.location.hash = '#home';  // Mengganti hash URL ke "home"
+      } else {
+        errorMessage.textContent = 'Login failed: No token received';
+      }
     } else {
-      // Tampilkan pesan error jika tidak ada token dalam respons
-      errorMessage.textContent = 'Login failed: No token received';
+      errorMessage.textContent = 'Login failed: Server error';
     }
-  } else {
-    // Tampilkan pesan error jika server error
-    errorMessage.textContent = 'Login failed: Server error';
+  } catch (error) {
+    // Tangani error jaringan atau kesalahan lainnya
+    console.error('Error:', error);
+    errorMessage.textContent = 'Login failed: Network error';
   }
 });
+
+// Cek apakah token sudah ada di localStorage saat halaman dimuat
+if (localStorage.getItem("authToken")) {
+  window.location.hash = "#home"; // Jika sudah login, langsung ke halaman home
+}
