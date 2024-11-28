@@ -1,17 +1,19 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+  console.log('login.js loaded');  // Pastikan file login.js dimuat
+
   const loginForm = document.getElementById('loginForm');
   const loginButton = document.querySelector('button[type="submit"]');
-  
-  console.log("login.js loaded");  // Debug: Cek jika script sudah dimuat
+
+  // Debug: Cek jika tombol login dan form ditemukan
+  console.log("Form dan tombol ditemukan:", loginForm, loginButton);
 
   if (!loginForm || !loginButton) {
     console.error('Form atau tombol login tidak ditemukan!');
     return;
   }
 
-  // Tangani submit form login
   loginForm.addEventListener('submit', async (event) => {
-    event.preventDefault(); // Mencegah form untuk disubmit secara default
+    event.preventDefault(); // Mencegah form disubmit secara default
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -19,16 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Debug: Cek apakah email dan password sudah terambil
     console.log("Form submitted:", { email, password });
 
-    // Validasi input
     if (!email || !password) {
       alert('Email dan password harus diisi!');
       return;
     }
 
     try {
-      // Kirim request login ke server
-      console.log("Sending login request...");  // Debug: Menyatakan bahwa request akan dikirim
-
       const response = await fetch('http://localhost:8080/api/login', {
         method: 'POST',
         headers: {
@@ -37,22 +35,20 @@ document.addEventListener('DOMContentLoaded', function() {
         body: JSON.stringify({ email, password }),
       });
 
-      console.log("Response status:", response.status);  // Debug: Cek status response
-
       const data = await response.json();
 
+      console.log("Response:", data);  // Debug: Cek response dari server
+
       if (response.ok) {
-        // Jika login berhasil, simpan token dan redirect
-        localStorage.setItem('auth_token', data.token); // Simpan token di localStorage
+        localStorage.setItem('auth_token', data.token);
         alert('Login berhasil!');
-        window.location.hash = '#home'; // Redirect ke halaman home
+        window.location.hash = '#home'; // Redirect ke halaman home setelah login berhasil
       } else {
-        // Jika login gagal, tampilkan pesan error
-        alert('Login gagal: ' + (data.message || 'Cek email dan password Anda.'));
+        alert('Login gagal: ' + (data.message || 'Periksa email dan password.'));
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Terjadi kesalahan saat melakukan login.');
+      alert('Terjadi kesalahan saat login.');
     }
   });
 });
