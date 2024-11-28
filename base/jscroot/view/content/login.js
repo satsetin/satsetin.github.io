@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const loginForm = document.getElementById('loginForm');
   const loginButton = document.querySelector('button[type="submit"]');
   
-  // Pastikan tombol dan form ada
+  console.log("login.js loaded");  // Debug: Cek jika script sudah dimuat
+
   if (!loginForm || !loginButton) {
     console.error('Form atau tombol login tidak ditemukan!');
     return;
@@ -15,6 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
+    // Debug: Cek apakah email dan password sudah terambil
+    console.log("Form submitted:", { email, password });
+
     // Validasi input
     if (!email || !password) {
       alert('Email dan password harus diisi!');
@@ -23,6 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     try {
       // Kirim request login ke server
+      console.log("Sending login request...");  // Debug: Menyatakan bahwa request akan dikirim
+
       const response = await fetch('http://localhost:8080/api/login', {
         method: 'POST',
         headers: {
@@ -30,6 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         body: JSON.stringify({ email, password }),
       });
+
+      console.log("Response status:", response.status);  // Debug: Cek status response
 
       const data = await response.json();
 
