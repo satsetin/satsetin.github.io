@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2 class="text-center">Login</h2>
+      <form id="loginForm">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" required />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" required />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </form>
+      <p class="text-center mt-3">
+        Don't have an account? <a href="register.html">Register</a>
+      </p>
+      <p class="text-center text-danger" id="error-message"></p>
+    </div>
+
+    <script>
+      const loginForm = document.getElementById("loginForm");
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+      const errorMessage = document.getElementById("error-message");
+
+      loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        // Mengambil nilai email dan password
+        const email = emailInput.value;
+        const password = passwordInput.value;
+
+        // Validasi input (cek apakah email dan password tidak kosong)
+        if (!email || !password) {
+          alert("Please fill in all fields");
+          return;
+        }
+
+        // Kirim request login ke endpoint API
+        const response = await fetch("http://localhost:8080/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        });
+
+        // Memeriksa apakah login berhasil
+        if (response.ok) {
+          const data = await response.json();
+          if (data.token) {
+            // Simpan token ke localStorage
+            localStorage.setItem("authToken", data.token);
+
+            // Jika login berhasil, redirect ke halaman home
+            window.location.href = "home.html"; // Redirect ke home.html
+          } else {
+            errorMessage.textContent = "Invalid email or password";
+          }
+        } else {
+          errorMessage.textContent = "Login failed: Server error";
+        }
+      });
+    </script>
+  </body>
+</html>
