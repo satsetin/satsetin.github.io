@@ -8,10 +8,82 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <style>
+      /* Efek zoom pada gambar produk */
+      .card-img-top {
+        transition: transform 0.5s ease;
+      }
+
+      .card-img-top:hover {
+        transform: scale(1.1);
+      }
+
+      /* Efek animasi pada tombol */
+      .btn-primary {
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: #007bff;
+        transform: scale(1.1);
+      }
+
+      /* Styling untuk card produk */
+      .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      /* Styling untuk kontainer produk */
+      .product-card {
+        margin-bottom: 30px;
+      }
+
+      .product-card img {
+        object-fit: cover;
+      }
+    </style>
   </head>
   <body>
+    <!-- Navbar (Tambahkan navbar jika perlu) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Product Store</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="home.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="product.html">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="cart.html">Cart</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <div class="container mt-5">
-      <h2 class="text-center">Product List</h2>
+      <h2 class="text-center mb-4">Product List</h2>
       <div class="row" id="product-list">
         <!-- Produk akan ditampilkan di sini -->
       </div>
@@ -54,6 +126,7 @@
               const productCard = document.createElement("div");
               productCard.classList.add("col-md-4");
               productCard.classList.add("mb-3");
+              productCard.classList.add("product-card");
               productCard.innerHTML = `
                             <div class="card">
                                 <img src="${product.image}" class="card-img-top" alt="${product.name}">
