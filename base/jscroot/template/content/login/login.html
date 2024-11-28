@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
   </head>
 
   <body>
@@ -15,6 +19,12 @@
       <div class="container" style="max-width: 400px">
         <div class="card shadow-sm p-4">
           <h2 class="text-center mb-4">Login</h2>
+          <!-- Loading Spinner -->
+          <div id="loading" style="display: none" class="text-center mb-3">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
           <form id="loginForm">
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
@@ -41,12 +51,22 @@
           <p class="text-center mt-3">
             Don't have an account? <a href="#register">Register</a>
           </p>
+          <p class="text-center text-danger" id="error-message"></p>
+          <!-- Error message -->
         </div>
       </div>
     </section>
+
     <script
       type="module"
       src="https://chekoutgobiz.github.io/fe_web/base/jscroot/view/content/login.js"
     ></script>
+
+    <script>
+      // Cek jika token sudah ada di localStorage, arahkan ke halaman home
+      if (localStorage.getItem("authToken")) {
+        window.location.hash = "#home"; // Jika sudah login, langsung ke home
+      }
+    </script>
   </body>
 </html>

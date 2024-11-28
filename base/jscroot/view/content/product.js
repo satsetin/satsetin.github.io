@@ -1,65 +1,82 @@
-// product.js
-
-async function fetchProducts() {
-    const token = localStorage.getItem("token");
-
-    const response = await fetch("http://localhost:8080/api/products", {
-        method: "GET",
+// Cek jika token tidak ada di localStorage, arahkan ke halaman login
+if (!localStorage.getItem('authToken')) {
+    window.location.hash = '#login';
+  }
+  
+  // Ambil elemen-elemen yang dibutuhkan
+  const productList = document.getElementById('product-list');
+  const loading = document.getElementById('loading');
+  
+  // Fungsi untuk mendapatkan produk dari API
+  const fetchProducts = async () => {
+    // Tampilkan loading spinner
+    loading.style.display = 'block';
+  
+    try {
+      // Mengambil token dari localStorage
+      const token = localStorage.getItem('authToken');
+  
+      // Mengirimkan permintaan GET ke API untuk mengambil daftar produk
+      const response = await fetch('http://localhost:8080/api/products', {
+        method: 'GET',
         headers: {
-            "Authorization": `Bearer ${token}`  // Mengirimkan token sebagai header untuk otentikasi
-        }
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-        console.log("Products fetched successfully", data.products);
-        displayProducts(data.products);
-    } else {
-        console.error("Failed to fetch products:", data.error);
-    }
-}
-
-// Fungsi untuk menampilkan produk di halaman
-function displayProducts(products) {
-    const productContainer = document.getElementById("productContainer");
-    productContainer.innerHTML = "";  // Clear previous content
-
-    products.forEach(product => {
-        const productElement = document.createElement("div");
-        productElement.classList.add("product");
-
-        productElement.innerHTML = `
-            <h3>${product.name}</h3>
-            <p>Price: $${product.originalPrice}</p>
-            <button onclick="addToCart('${product._id}')">Add to Cart</button>
-        `;
-        productContainer.appendChild(productElement);
-    });
-}
-
-// Fungsi untuk menambahkan produk ke keranjang
-async function addToCart(productId) {
-    const token = localStorage.getItem("token");
-    const userId = localStorage.getItem("user_id");  // Pastikan Anda menyimpan user_id saat login
-
-    const response = await fetch("http://localhost:8080/api/cart", {
-        method: "POST",
-        headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
+          'Authorization': `Bearer ${token}`, // Menggunakan Bearer token
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ product_id: productId, user_id: userId })
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-        console.log("Product added to cart", data);
-    } else {
-        console.error("Failed to add to cart:", data.error);
+      });
+  
+      // Menyembunyikan loading spinner setelah data diterima
+      loading.style.display = 'none';
+  
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          // Menampilkan produk ke halaman
+          displayProducts(data.products);
+        } else {
+          alert('Error fetching products: ' + data.message);
+        }
+      } else {
+        alert('Failed to fetch products. Server error.');
+      }
+    } catch (error) {
+      loading.style.display = 'none';
+      alert('An error occurred: ' + error.message);
     }
-}
-
-// Memanggil fetchProducts untuk menampilkan produk saat halaman dimuat
-fetchProducts();
+  };
+  
+  // Fungsi untuk menampilkan produk ke halaman
+  const displayProducts = (products) => {
+    if (products.length === 0) {
+      productList.innerHTML = '<p>No products found.</p>';
+    } else {
+      products.forEach((product) => {
+        const productCard = document.createElement('div');
+        productCard.classList.add('col-md-4');
+        productCard.classList.add('mb-4');
+        productCard.innerHTML = `
+          <div class="card">
+            <img src="${product.imageUrl}" class="card-img-top" alt="${product.name}">
+            <div class="card-body">
+              <h5 class="card-title">${product.name}</h5>
+              <p class="card-text">Price: $${product.price}</p>
+              <button class="btn btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
+            </div>
+          </div>
+        `;
+        productList.appendChild(productCard);
+      });
+    }
+  };
+  
+  // Fungsi untuk menambahkan produk ke keranjang
+  const addToCart = (productId) => {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(productId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert('Product added to cart');
+  };
+  
+  // Panggil fungsi untuk mengambil produk saat halaman dimuat
+  fetchProducts();
+  
