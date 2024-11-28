@@ -41,7 +41,7 @@ loginForm.addEventListener('submit', async (event) => {
       // Jika login berhasil, tampilkan pesan sukses dan redirect ke home
       showSuccessMessage('Login successful! Redirecting...');
       setTimeout(() => {
-        window.location.hash = 'home'; // Ganti hash URL ke "home"
+        window.location.hash = '#home'; // Ganti hash URL ke "home"
       }, 2000); // Delay 2 detik sebelum redirect
     } else {
       showErrorMessage(data.message || 'Login failed');
