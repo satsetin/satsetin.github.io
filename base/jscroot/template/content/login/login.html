@@ -7,11 +7,13 @@
   </head>
   <body>
     <!-- Konten Login -->
-    <section class="d-flex align-items-center justify-content-center" style="min-height: 100vh">
+    <section
+      class="d-flex align-items-center justify-content-center"
+      style="min-height: 100vh"
+    >
       <div class="container" style="max-width: 400px">
-        <div class="card shadow-sm p-4" id="content-container">
+        <div class="card shadow-sm p-4">
           <h2 class="text-center mb-4">Login</h2>
-          <!-- Form login -->
           <form id="loginForm">
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
@@ -20,7 +22,6 @@
                 class="form-control"
                 id="email"
                 name="email"
-                placeholder="Enter your email"
                 required
               />
             </div>
@@ -31,7 +32,6 @@
                 class="form-control"
                 id="password"
                 name="password"
-                placeholder="Enter your password"
                 required
               />
             </div>
@@ -43,18 +43,9 @@
         </div>
       </div>
     </section>
-
-    <script type="module">
-      import { getData } from "../../js/content.js"; // Sesuaikan dengan path ke content.js
-
-      // Memuat konten dinamis berdasarkan hash URL
-      async function loadContent() {
-        const content = await getData(); // Memanggil fungsi getData untuk mendapatkan HTML
-        document.getElementById("content-container").innerHTML = content;
-      }
-
-      // Memanggil fungsi untuk memuat konten
-      loadContent();
-    </script>
+    <!-- Memanggil file JavaScript -->
+    <script src="https://cdn.jsdelivr.net/gh/jscroot/url@0.0.2/croot.js"></script>
+    <script src="https://chekoutgobiz.github.io/fe_web/base/jscroot/url/config.js"></script>
+    <script src="../../view/content/login.js"></script>
   </body>
 </html>
