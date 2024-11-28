@@ -3,133 +3,99 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Login - Foodie's Heaven</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
-      rel="stylesheet"
-    />
     <style>
-      /* Atur body agar latar belakang memenuhi layar dan card di tengah */
-      body,
-      html {
-        height: 100%;
-        margin: 0;
+      body {
+        background-image: url("https://images.pexels.com/photos/1603240/pexels-photo-1603240.jpeg");
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-image: url("https://images.pexels.com/photos/1603240/pexels-photo-1603240.jpeg"); /* Gambar makanan dari Pexels */
-        background-size: cover;
-        background-position: center;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
       }
 
-      /* Efek blur pada latar belakang */
-      .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-      }
-
-      .card {
-        border-radius: 15px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 450px;
-        padding: 40px;
-        position: relative;
-        z-index: 1;
-      }
-
-      .form-control {
+      .login-card {
+        background-color: rgba(255, 255, 255, 0.85);
         border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        width: 100%;
+      }
+
+      h2 {
+        color: #333;
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 20px;
       }
 
       .btn-primary {
-        background-color: #6c63ff;
-        border-color: #6c63ff;
+        background-color: #f8a719;
+        border-color: #f8a719;
       }
 
       .btn-primary:hover {
-        background-color: #5a53d0;
-        border-color: #5a53d0;
+        background-color: #f07f10;
+        border-color: #f07f10;
       }
 
-      .spinner-border {
-        width: 3rem;
-        height: 3rem;
+      .form-label {
+        font-weight: bold;
+        color: #555;
       }
 
-      .text-primary {
-        color: #6c63ff;
-      }
-
-      .login-link {
-        text-decoration: none;
-        color: #6c63ff;
-      }
-
-      .login-link:hover {
-        text-decoration: underline;
-      }
-
-      .text-center {
+      #error-message {
+        color: red;
         text-align: center;
       }
     </style>
   </head>
+
   <body>
-    <div class="overlay"></div>
-    <!-- Overlay untuk efek blur -->
-    <div class="card">
-      <h2 class="text-center mb-4 text-primary">Login</h2>
-      <!-- Loading Spinner -->
-      <div id="loading" style="display: none" class="text-center mb-3">
-        <div class="spinner-border text-primary" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
+    <div class="container">
+      <div class="login-card">
+        <h2>Welcome to Foodie's Heaven</h2>
+        <form id="loginForm">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        <p class="text-center mt-3">
+          Don't have an account? <a href="#register">Register</a>
+        </p>
+        <p class="text-center" id="error-message"></p>
       </div>
-      <form id="loginForm">
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            name="email"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            name="password"
-            required
-          />
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Login</button>
-      </form>
-      <p class="text-center mt-3">
-        Don't have an account?
-        <a href="register.html" class="login-link">Register</a>
-      </p>
-      <p class="text-center text-danger" id="error-message"></p>
     </div>
 
     <script>
       const loginForm = document.getElementById("loginForm");
       const emailInput = document.getElementById("email");
       const passwordInput = document.getElementById("password");
-      const loadingIndicator = document.getElementById("loading");
       const errorMessage = document.getElementById("error-message");
 
       loginForm.addEventListener("submit", async (event) => {
@@ -143,33 +109,38 @@
           return;
         }
 
-        loadingIndicator.style.display = "block";
+        try {
+          const response = await fetch("http://localhost:8080/api/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+          });
 
-        const response = await fetch("http://localhost:8080/api/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          }),
-        });
-
-        loadingIndicator.style.display = "none";
-
-        if (response.ok) {
           const data = await response.json();
-          if (data.success) {
+          console.log("Response from server:", data);
+
+          if (response.ok && data.token) {
+            // Menyimpan token ke localStorage
             localStorage.setItem("authToken", data.token);
-            window.location.href = "home.html";
+
+            // Simpan data pengguna (optional)
+            localStorage.setItem("user", JSON.stringify(data.user));
+
+            // Redirect ke halaman home setelah login berhasil
+            window.location.href = "home.html"; // Atau halaman tujuan lainnya
           } else {
+            // Menampilkan pesan error jika login gagal
             errorMessage.textContent = data.message || "Login failed";
           }
-        } else {
-          errorMessage.textContent = "Login failed: Server error";
+        } catch (error) {
+          console.error("Login failed:", error);
+          errorMessage.textContent = "Login failed: An error occurred";
         }
       });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
