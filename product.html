@@ -9,88 +9,37 @@
       rel="stylesheet"
     />
     <style>
-      /* Efek zoom pada gambar produk */
       .card-img-top {
-        transition: transform 0.5s ease;
+        transition: transform 0.3s ease-in-out;
       }
 
       .card-img-top:hover {
         transform: scale(1.1);
       }
-
-      /* Efek animasi pada tombol */
-      .btn-primary {
-        transition: background-color 0.3s ease, transform 0.3s ease;
-      }
-
-      .btn-primary:hover {
-        background-color: #007bff;
-        transform: scale(1.1);
-      }
-
-      /* Styling untuk card produk */
-      .card {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        transition: transform 0.3s ease;
-      }
-
-      .card:hover {
-        transform: translateY(-5px);
-      }
-
-      /* Styling untuk kontainer produk */
-      .product-card {
-        margin-bottom: 30px;
-      }
-
-      .product-card img {
-        object-fit: cover;
-      }
     </style>
   </head>
+
   <body>
-    <!-- Navbar (Tambahkan navbar jika perlu) -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Product Store</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="home.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="product.html">Products</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="cart.html">Cart</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <div id="navbar-placeholder"></div>
 
     <div class="container mt-5">
-      <h2 class="text-center mb-4">Product List</h2>
+      <h2 class="text-center">Product List</h2>
       <div class="row" id="product-list">
         <!-- Produk akan ditampilkan di sini -->
       </div>
       <a href="cart.html" class="btn btn-warning mt-3">Go to Cart</a>
     </div>
 
+    <div id="footer-placeholder"></div>
+
     <script>
+      // Fungsi untuk memuat navbar dan footer dari folder components
+      async function loadComponent(component, elementId) {
+        const response = await fetch(`components/${component}.html`);
+        const content = await response.text();
+        document.getElementById(elementId).innerHTML = content;
+      }
+
       // Fungsi untuk mengambil produk dari API
       async function loadProducts() {
         // Mengambil token dari localStorage
@@ -122,21 +71,38 @@
             const productListContainer =
               document.getElementById("product-list");
 
+            // Fungsi untuk format harga dalam IDR
+            const formatCurrency = (value) => {
+              return new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR",
+              }).format(value);
+            };
+
             data.products.forEach((product) => {
               const productCard = document.createElement("div");
               productCard.classList.add("col-md-4");
               productCard.classList.add("mb-3");
-              productCard.classList.add("product-card");
               productCard.innerHTML = `
                             <div class="card">
-                                <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                                <img src="${
+                                  product.image
+                                }" class="card-img-top" alt="${product.name}">
                                 <div class="card-body">
                                     <h5 class="card-title">${product.name}</h5>
                                     <p class="card-text">
-                                        <del>$${product.original_price}</del> 
-                                        <span class="text-success">$${product.discount_price}</span>
+                                        <del>${formatCurrency(
+                                          product.original_price
+                                        )}</del> 
+                                        <span class="text-success">${formatCurrency(
+                                          product.discount_price
+                                        )}</span>
                                     </p>
-                                    <button class="btn btn-primary" onclick="addToCart('${product._id}', '${product.name}', ${product.discount_price})">Add to Cart</button>
+                                    <button class="btn btn-primary" onclick="addToCart('${
+                                      product._id
+                                    }', '${product.name}', ${
+                product.discount_price
+              })">Add to Cart</button>
                                 </div>
                             </div>
                         `;
@@ -174,8 +140,12 @@
         alert(`${productName} added to cart`);
       }
 
-      // Load produk saat halaman dimuat
-      window.onload = loadProducts;
+      // Load navbar, footer dan produk saat halaman dimuat
+      window.onload = async function () {
+        await loadComponent("navbar", "navbar-placeholder");
+        await loadComponent("footer", "footer-placeholder");
+        loadProducts();
+      };
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
