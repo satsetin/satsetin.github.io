@@ -120,6 +120,21 @@
         });
       }
 
+// Fungsi untuk mengupdate jumlah item di cart di navbar
+function updateCartItemCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0); // Hitung jumlah total item berdasarkan quantity
+    const cartItemCount = document.getElementById("cart-item-count");
+    cartItemCount.textContent = totalItems; // Update jumlah item di badge
+  }
+  
+  // Memuat keranjang dan mengupdate jumlah item di navbar saat halaman dimuat
+  window.onload = function () {
+    loadCart(); // Memuat item keranjang
+    updateCartItemCount(); // Memperbarui jumlah item di navbar
+  };
+  
+
       // Fungsi untuk menghapus produk dari keranjang
       function removeFromCart(index) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
