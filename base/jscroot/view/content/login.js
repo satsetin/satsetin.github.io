@@ -37,14 +37,19 @@ loginForm.addEventListener('submit', async (event) => {
   // Memeriksa apakah login berhasil
   if (response.ok) {
     const data = await response.json();
-    if (data.success) {
-      // Jika login berhasil, tampilkan pesan sukses dan redirect ke home
+
+    if (data.token) {
+      // Jika login berhasil dan menerima token, simpan token ke localStorage
+      localStorage.setItem('auth_token', data.token); // Anda bisa menggunakan sessionStorage jika hanya ingin token bertahan selama sesi
       showSuccessMessage('Login successful! Redirecting...');
+      
+      // Redirect ke halaman #home setelah sukses login
       setTimeout(() => {
+        // Ganti hash URL ke "home"
         window.location.hash = '#home'; // Ganti hash URL ke "home"
       }, 2000); // Delay 2 detik sebelum redirect
     } else {
-      showErrorMessage(data.message || 'Login failed');
+      showErrorMessage('Login failed: Invalid token response');
     }
   } else {
     showErrorMessage('Login failed: Server error');
