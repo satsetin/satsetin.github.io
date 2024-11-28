@@ -4,6 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
+    <style>
+      .alert {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+    </style>
   </head>
   <body>
     <!-- Konten Login -->
@@ -14,6 +32,21 @@
       <div class="container" style="max-width: 400px">
         <div class="card shadow-sm p-4">
           <h2 class="text-center mb-4">Login</h2>
+
+          <!-- Pesan Kesalahan -->
+          <div
+            id="errorMessage"
+            class="alert alert-danger"
+            style="display: none"
+          ></div>
+
+          <!-- Pesan Sukses -->
+          <div
+            id="successMessage"
+            class="alert alert-success"
+            style="display: none"
+          ></div>
+
           <form id="loginForm">
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
@@ -43,9 +76,10 @@
         </div>
       </div>
     </section>
+
     <!-- Memanggil file JavaScript -->
     <script src="https://cdn.jsdelivr.net/gh/jscroot/url@0.0.2/croot.js"></script>
     <script src="https://chekoutgobiz.github.io/fe_web/base/jscroot/url/config.js"></script>
-    <script src="../../view/content/login.js"></script>
+    <!-- <script src="../../view/content/login.js"></script> -->
   </body>
 </html>
