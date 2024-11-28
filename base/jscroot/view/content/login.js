@@ -34,7 +34,7 @@ loginForm.addEventListener('submit', async (event) => {
     const data = await response.json();
     if (data.success) {
       // Jika login berhasil, redirect ke halaman home
-      window.location.hash = '#home'; // Ganti hash URL ke "home"
+      window.location.hash = 'home'; // Ganti hash URL ke "home"
     } else {
       alert('Login failed: ' + data.message);
     }
