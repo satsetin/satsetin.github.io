@@ -69,7 +69,7 @@ export function getURLContentJS() {
     case "logout":
       return url.view.content + "logout.js";
     case "login":
-      return url.view.content + "login/login.js"; // Rute JS untuk login
+      return url.view.content + "login.js"; // Rute JS untuk login
     case "cart":
       return url.view.content + "cart.js";
     case "product":
