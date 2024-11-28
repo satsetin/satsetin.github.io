@@ -4,15 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <!-- Optional: You can add some CSS or Bootstrap for styling -->
   </head>
-
   <body>
-    <!-- Tempat untuk menampilkan konten dinamis -->
+    <!-- Konten Login -->
     <section class="d-flex align-items-center justify-content-center" style="min-height: 100vh">
       <div class="container" style="max-width: 400px">
         <div class="card shadow-sm p-4" id="content-container">
-          <!-- Konten akan dimuat disini -->
+          <h2 class="text-center mb-4">Login</h2>
+          <!-- Form login -->
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+          </form>
+          <p class="text-center mt-3">
+            Don't have an account? <a href="register.html">Register</a>
+          </p>
         </div>
       </div>
     </section>
