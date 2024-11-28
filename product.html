@@ -20,6 +20,23 @@
   </head>
 
   <body>
+    <!-- Navbar with Cart Badge -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">SatsetIn</a>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="cart.html">
+                Cart
+                <span id="cart-item-count" class="badge bg-warning">0</span> <!-- Cart Badge -->
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <div id="navbar-placeholder"></div>
 
     <div class="container mt-5">
@@ -40,9 +57,16 @@
         document.getElementById(elementId).innerHTML = content;
       }
 
+      // Fungsi untuk memperbarui jumlah item di cart (badge)
+      function updateCartItemCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+        const cartItemCount = document.getElementById("cart-item-count");
+        cartItemCount.textContent = totalItems; // Update jumlah item di badge
+      }
+
       // Fungsi untuk mengambil produk dari API
       async function loadProducts() {
-        // Mengambil token dari localStorage
         const token = localStorage.getItem("authToken");
 
         if (!token) {
@@ -56,7 +80,7 @@
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // Mengirim token di header Authorization
+              Authorization: `Bearer ${token}`,
             },
           });
 
@@ -66,10 +90,8 @@
 
           const data = await response.json();
 
-          // Pastikan data.products adalah array sebelum lanjut
           if (Array.isArray(data.products)) {
-            const productListContainer =
-              document.getElementById("product-list");
+            const productListContainer = document.getElementById("product-list");
 
             // Fungsi untuk format harga dalam IDR
             const formatCurrency = (value) => {
@@ -84,28 +106,20 @@
               productCard.classList.add("col-md-4");
               productCard.classList.add("mb-3");
               productCard.innerHTML = `
-                            <div class="card">
-                                <img src="${
-                                  product.image
-                                }" class="card-img-top" alt="${product.name}">
-                                <div class="card-body">
-                                    <h5 class="card-title">${product.name}</h5>
-                                    <p class="card-text">
-                                        <del>${formatCurrency(
-                                          product.original_price
-                                        )}</del> 
-                                        <span class="text-success">${formatCurrency(
-                                          product.discount_price
-                                        )}</span>
-                                    </p>
-                                    <button class="btn btn-primary" onclick="addToCart('${
-                                      product._id
-                                    }', '${product.name}', ${
-                product.discount_price
-              })">Add to Cart</button>
-                                </div>
-                            </div>
-                        `;
+                <div class="card">
+                  <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                  <div class="card-body">
+                    <h5 class="card-title">${product.name}</h5>
+                    <p class="card-text">
+                      <del>${formatCurrency(product.original_price)}</del> 
+                      <span class="text-success">${formatCurrency(product.discount_price)}</span>
+                    </p>
+                    <button class="btn btn-primary" onclick="addToCart('${product._id}', '${product.name}', ${product.discount_price})">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              `;
               productListContainer.appendChild(productCard);
             });
           } else {
@@ -138,13 +152,17 @@
         // Simpan kembali cart ke localStorage
         localStorage.setItem("cart", JSON.stringify(cart));
         alert(`${productName} added to cart`);
+
+        // Perbarui jumlah item di cart setelah produk ditambahkan
+        updateCartItemCount();
       }
 
-      // Load navbar, footer dan produk saat halaman dimuat
+      // Load navbar, footer, dan produk saat halaman dimuat
       window.onload = async function () {
         await loadComponent("navbar", "navbar-placeholder");
         await loadComponent("footer", "footer-placeholder");
         loadProducts();
+        updateCartItemCount(); // Memperbarui jumlah item di cart saat halaman dimuat
       };
     </script>
 
