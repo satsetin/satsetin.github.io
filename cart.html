@@ -93,11 +93,19 @@
         })
         .catch((error) => console.error("Error loading footer:", error));
 
-      // Fungsi untuk menampilkan produk di keranjang
+      // Fungsi untuk menampilkan produk di keranjang dengan harga dalam IDR
       function loadCart() {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         const cartListContainer = document.getElementById("cart-list");
         cartListContainer.innerHTML = "";
+
+        // Fungsi untuk format harga dalam IDR
+        const formatCurrency = (value) => {
+          return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+          }).format(value);
+        };
 
         cart.forEach((item, index) => {
           const cartItem = document.createElement("div");
@@ -109,31 +117,28 @@
                             <h5>${item.name}</h5>
                             <button class="btn btn-danger btn-sm" onclick="removeFromCart(${index})">Remove</button>
                         </div>
-                        <p>Price: $${item.price}</p>
-                        <p>Quantity: <input type="number" value="${
-                          item.quantity
-                        }" min="1" onchange="updateQuantity(${index}, this.value)" class="form-control w-25"></p>
-                        <p>Total: $${item.price * item.quantity}</p>
+                        <p>Price: ${formatCurrency(item.price)}</p>
+                        <p>Quantity: <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)" class="form-control w-25"></p>
+                        <p>Total: ${formatCurrency(item.price * item.quantity)}</p>
                     </div>
                 `;
           cartListContainer.appendChild(cartItem);
         });
       }
 
-// Fungsi untuk mengupdate jumlah item di cart di navbar
-function updateCartItemCount() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0); // Hitung jumlah total item berdasarkan quantity
-    const cartItemCount = document.getElementById("cart-item-count");
-    cartItemCount.textContent = totalItems; // Update jumlah item di badge
-  }
-  
-  // Memuat keranjang dan mengupdate jumlah item di navbar saat halaman dimuat
-  window.onload = function () {
-    loadCart(); // Memuat item keranjang
-    updateCartItemCount(); // Memperbarui jumlah item di navbar
-  };
-  
+      // Fungsi untuk mengupdate jumlah item di cart di navbar
+      function updateCartItemCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0); // Hitung jumlah total item berdasarkan quantity
+        const cartItemCount = document.getElementById("cart-item-count");
+        cartItemCount.textContent = totalItems; // Update jumlah item di badge
+      }
+
+      // Memuat keranjang dan mengupdate jumlah item di navbar saat halaman dimuat
+      window.onload = function () {
+        loadCart(); // Memuat item keranjang
+        updateCartItemCount(); // Memperbarui jumlah item di navbar
+      };
 
       // Fungsi untuk menghapus produk dari keranjang
       function removeFromCart(index) {
