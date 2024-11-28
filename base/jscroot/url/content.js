@@ -29,6 +29,8 @@ export function getContentURL() {
             return url.template.content + "saved.html";
         case "logout":
             return url.template.content + "logout.html";
+        case "register":
+            return url.template.content + "register/register.html";
         case "login":
             return url.template.content + "login/login.html"; // Rute login
         case "cart":
@@ -70,6 +72,8 @@ export function getURLContentJS() {
             return url.view.content + "logout.js";
         case "login":
             return url.view.content + "login.js";
+        case "register":
+            return url.view.content + "register.js";
         case "cart":
             return url.view.content + "cart.js";
         case "product":
