@@ -56,7 +56,31 @@
   </head>
   <body>
     <!-- Navbar -->
-    <div id="navbar-placeholder"></div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">SatsetIn</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="cart.html">
+                Cart (<span id="cart-item-count">0</span> products)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
     <!-- Cart Content -->
     <div class="container cart-container">
@@ -66,9 +90,7 @@
       </div>
       <div class="text-center mt-3">
         <button class="btn btn-danger" onclick="clearCart()">Clear Cart</button>
-        <a href="checkout.html" class="btn btn-success mt-3"
-          >Proceed to Checkout</a
-        >
+        <a href="checkout.html" class="btn btn-success mt-3">Proceed to Checkout</a>
       </div>
     </div>
 
@@ -124,6 +146,8 @@
                 `;
           cartListContainer.appendChild(cartItem);
         });
+
+        updateCartItemCount(); // Memperbarui jumlah item di navbar setelah memuat cart
       }
 
       // Fungsi untuk mengupdate jumlah item di cart di navbar
@@ -133,12 +157,6 @@
         const cartItemCount = document.getElementById("cart-item-count");
         cartItemCount.textContent = totalItems; // Update jumlah item di badge
       }
-
-      // Memuat keranjang dan mengupdate jumlah item di navbar saat halaman dimuat
-      window.onload = function () {
-        loadCart(); // Memuat item keranjang
-        updateCartItemCount(); // Memperbarui jumlah item di navbar
-      };
 
       // Fungsi untuk menghapus produk dari keranjang
       function removeFromCart(index) {
@@ -162,8 +180,11 @@
         loadCart(); // Reload cart setelah dikosongkan
       }
 
-      // Load keranjang saat halaman dimuat
-      window.onload = loadCart;
+      // Memuat keranjang dan mengupdate jumlah item di navbar saat halaman dimuat
+      window.onload = function () {
+        loadCart(); // Memuat item keranjang
+        updateCartItemCount(); // Memperbarui jumlah item di navbar
+      };
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
