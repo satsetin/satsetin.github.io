@@ -38,15 +38,18 @@ loginForm.addEventListener('submit', async (event) => {
   // Memeriksa apakah login berhasil
   if (response.ok) {
     const data = await response.json();
-    if (data.success) {
+    console.log("Response data:", data); // Debugging: cek respons data
+
+    if (data.token) {
       // Simpan token ke localStorage
-      localStorage.setItem('authToken', data.token);  // Menyimpan token autentikasi
-      
-      // Jika login berhasil, redirect ke halaman home atau dashboard
+      localStorage.setItem('authToken', data.token);
+      console.log("Token disimpan:", data.token);  // Debugging: cek token yang disimpan
+
+      // Redirect ke halaman home jika login berhasil
       window.location.hash = '#home'; // Ganti hash URL ke "home"
     } else {
-      // Tampilkan pesan error
-      errorMessage.textContent = data.message || 'Login failed';
+      // Tampilkan pesan error jika tidak ada token dalam respons
+      errorMessage.textContent = 'Login failed: No token received';
     }
   } else {
     // Tampilkan pesan error jika server error

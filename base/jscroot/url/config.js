@@ -18,6 +18,11 @@ export const url = {
         sidebar: folder.template + "sidebar.html",
         footer: folder.template + "footer.html",
         rightbar: folder.template + "rightbar.html",
+        register: folder.template + "register.html",
+        login: folder.template + "login.html",
+        product: folder.template + "product.html",
+        cart: folder.template + "cart.html",
+
     },
     controller: {
         main: folder.controller + "main.js",
@@ -30,5 +35,10 @@ export const url = {
         settings: folder.view + "settings.js",
         sidebar: folder.view + "sidebar.js",
         footer: folder.view + "footer.js",
+        // Menambahkan rute untuk login, register, product, cart, dll
+        login: folder.view + "login.js",
+        register: folder.view + "register.js",
+        product: folder.view + "product.js",
+        cart: folder.view + "cart.js",
     },
 };

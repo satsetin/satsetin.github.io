@@ -1,8 +1,15 @@
 // Cek jika token tidak ada di localStorage, arahkan ke halaman login
-if (!localStorage.getItem('authToken')) {
-    window.location.hash = '#login';
-  }
-  
+// Mengecek apakah ada token di localStorage
+const authToken = localStorage.getItem("authToken");
+if (!authToken) {
+    // Jika token tidak ada, redirect ke halaman login
+    window.location.href = "#login";
+} else {
+    // Jika token ada, tampilkan konten produk
+    console.log("Token ditemukan, tampilkan produk");
+    // Ambil dan tampilkan data produk dari API atau database
+}
+
   // Ambil elemen-elemen yang dibutuhkan
   const productList = document.getElementById('product-list');
   const loading = document.getElementById('loading');
@@ -20,7 +27,7 @@ if (!localStorage.getItem('authToken')) {
       const response = await fetch('http://localhost:8080/api/products', {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`, // Menggunakan Bearer token
+          'Authorization': `${token}`, // Menggunakan Bearer token
           'Content-Type': 'application/json',
         },
       });
