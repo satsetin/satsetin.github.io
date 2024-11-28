@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
   </head>
+
   <body>
     <!-- Konten Login -->
     <section
@@ -12,9 +13,8 @@
       style="min-height: 100vh"
     >
       <div class="container" style="max-width: 400px">
-        <div class="card shadow-sm p-4" id="content-container">
+        <div class="card shadow-sm p-4">
           <h2 class="text-center mb-4">Login</h2>
-          <!-- Form login -->
           <form id="loginForm">
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
@@ -23,7 +23,6 @@
                 class="form-control"
                 id="email"
                 name="email"
-                placeholder="Enter your email"
                 required
               />
             </div>
@@ -34,7 +33,6 @@
                 class="form-control"
                 id="password"
                 name="password"
-                placeholder="Enter your password"
                 required
               />
             </div>
@@ -46,18 +44,5 @@
         </div>
       </div>
     </section>
-
-    <script type="module">
-      import { getData } from "../../url/content.js"; // Sesuaikan dengan path ke content.js
-
-      // Memuat konten dinamis berdasarkan hash URL
-      async function loadContent() {
-        const content = await getData(); // Memanggil fungsi getData untuk mendapatkan HTML
-        document.getElementById("content-container").innerHTML = content;
-      }
-
-      // Memanggil fungsi untuk memuat konten
-      loadContent();
-    </script>
   </body>
 </html>
