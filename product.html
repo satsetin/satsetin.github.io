@@ -20,6 +20,7 @@
   </head>
 
   <body>
+    <!-- Navbar with Cart Badge -->
     <div id="navbar-placeholder"></div>
 
     <div class="container mt-5">
@@ -38,6 +39,14 @@
         const response = await fetch(`components/${component}.html`);
         const content = await response.text();
         document.getElementById(elementId).innerHTML = content;
+      }
+
+      // Fungsi untuk memperbarui jumlah item di cart (badge)
+      function updateCartItemCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+        const cartItemCount = document.getElementById("cart-item-count");
+        cartItemCount.textContent = totalItems; // Update jumlah item di badge
       }
 
       // Fungsi untuk mengambil produk dari API
@@ -138,6 +147,9 @@
         // Simpan kembali cart ke localStorage
         localStorage.setItem("cart", JSON.stringify(cart));
         alert(`${productName} added to cart`);
+
+        // Perbarui jumlah item di cart setelah produk ditambahkan
+        updateCartItemCount();
       }
 
       // Load navbar, footer dan produk saat halaman dimuat
@@ -145,6 +157,7 @@
         await loadComponent("navbar", "navbar-placeholder");
         await loadComponent("footer", "footer-placeholder");
         loadProducts();
+        updateCartItemCount(); // Memperbarui jumlah item di cart saat halaman dimuat
       };
     </script>
 
