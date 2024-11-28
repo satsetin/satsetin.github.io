@@ -43,31 +43,34 @@
             throw new Error("Failed to fetch products");
           }
 
-          const products = await response.json();
+          const data = await response.json();
 
-          // Pastikan products adalah array sebelum lanjut
-          if (Array.isArray(products)) {
+          // Pastikan data.products adalah array sebelum lanjut
+          if (Array.isArray(data.products)) {
             const productListContainer =
               document.getElementById("product-list");
 
-            products.forEach((product) => {
+            data.products.forEach((product) => {
               const productCard = document.createElement("div");
               productCard.classList.add("col-md-4");
               productCard.classList.add("mb-3");
               productCard.innerHTML = `
                             <div class="card">
-                                <img src="${product.imageUrl}" class="card-img-top" alt="${product.name}">
+                                <img src="${product.image}" class="card-img-top" alt="${product.name}">
                                 <div class="card-body">
                                     <h5 class="card-title">${product.name}</h5>
-                                    <p class="card-text">$${product.price}</p>
-                                    <button class="btn btn-primary" onclick="addToCart('${product.id}', '${product.name}', ${product.price})">Add to Cart</button>
+                                    <p class="card-text">
+                                        <del>$${product.original_price}</del> 
+                                        <span class="text-success">$${product.discount_price}</span>
+                                    </p>
+                                    <button class="btn btn-primary" onclick="addToCart('${product._id}', '${product.name}', ${product.discount_price})">Add to Cart</button>
                                 </div>
                             </div>
                         `;
               productListContainer.appendChild(productCard);
             });
           } else {
-            console.error("Response is not an array", products);
+            console.error("Response is not an array", data);
           }
         } catch (error) {
           console.error("Error loading products:", error);
