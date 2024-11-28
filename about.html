@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - SatsetIn</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f7f7f7;
+        font-family: "Arial", sans-serif;
+        color: #333;
+      }
+
+      .hero-section {
+        background-image: url("https://images.unsplash.com/photo-1506748686213-e30d431b6935?fit=crop&w=500&h=500&q=80");
+        background-size: cover;
+        background-position: center;
+        padding: 100px 0;
+        color: #fff;
+        text-align: center;
+      }
+
+      .hero-section h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .hero-section p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: auto;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: bold;
+      }
+
+      .about-section {
+        padding: 50px 0;
+        background-color: #fff;
+      }
+
+      .about-section img {
+        border-radius: 10px;
+        max-width: 100%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .team-section .team-member {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .team-section .team-member img {
+        border-radius: 50%;
+        max-width: 150px;
+        margin-bottom: 15px;
+      }
+
+      .team-section .team-member h5 {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .team-section .team-member p {
+        font-size: 1rem;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1>Welcome to SatsetIn</h1>
+      <p>
+        Your digital partner for innovative marketing solutions. Let's grow
+        together!
+      </p>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section container">
+      <h2 class="section-title">About Us</h2>
+      <div class="row">
+        <div class="col-lg-6">
+          <p>
+            SatsetIn is a digital marketing agency focused on helping businesses
+            create an online presence that truly represents their brand. Our
+            services include content creation, digital ads, social media
+            marketing, and more. We work with you to develop strategies that
+            drive results and elevate your brand.
+          </p>
+        </div>
+        <div class="col-lg-6">
+          <img
+            src="https://images.unsplash.com/photo-1521747116042-5c1d8d5d4eaf?crop=entropy&cs=tinysrgb&fit=max&ixid=MXwyMDg3OHwwfDF8c2VhY3J8c3x8fGZvb2R8ZW58MHx8fHw&ixlib=rb-1.2.1&q=80&w=400"
+            alt="About SatsetIn"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section container">
+      <h2 class="section-title">Meet Our Team</h2>
+      <div class="row">
+        <div class="col-md-4 team-member">
+          <img
+            src="https://randomuser.me/api/portraits/men/32.jpg"
+            alt="John Doe"
+          />
+          <h5>John Doe</h5>
+          <p>CEO & Founder</p>
+        </div>
+        <div class="col-md-4 team-member">
+          <img
+            src="https://randomuser.me/api/portraits/women/32.jpg"
+            alt="Jane Smith"
+          />
+          <h5>Jane Smith</h5>
+          <p>Creative Director</p>
+        </div>
+        <div class="col-md-4 team-member">
+          <img
+            src="https://randomuser.me/api/portraits/men/45.jpg"
+            alt="Michael Lee"
+          />
+          <h5>Michael Lee</h5>
+          <p>Marketing Specialist</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script>
+      // Menambahkan Navbar dan Footer secara dinamis dari folder components
+      document.getElementById("navbar-placeholder").innerHTML = `
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <a class="navbar-brand" href="#">SatsetIn</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="home.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="products.html">Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="about.html">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="logout.html">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        `;
+
+      document.getElementById("footer-placeholder").innerHTML = `
+            <footer class="footer bg-dark text-white py-4 text-center">
+                <p>&copy; 2024 SatsetIn. All Rights Reserved.</p>
+                <p><a href="privacy.html" class="text-white">Privacy Policy</a> | <a href="terms.html" class="text-white">Terms of Service</a></p>
+            </footer>
+        `;
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
