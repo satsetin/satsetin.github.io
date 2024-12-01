@@ -128,3 +128,19 @@
           alert("Your cart is empty! Please add items to your cart.");
           return;
         }
+
+        // Proses konfirmasi pesanan (misalnya simpan ke database, kirim email, dll.)
+        alert("Your order has been confirmed. Thank you for shopping with us!");
+
+        // Setelah konfirmasi, hapus cart untuk memulai pesanan baru
+        localStorage.removeItem("cart");
+        loadCheckout(); // Reload untuk memperbarui tampilan
+      }
+
+      // Load checkout summary saat halaman dimuat
+      window.onload = loadCheckout;
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
