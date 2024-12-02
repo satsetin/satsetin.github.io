@@ -56,16 +56,6 @@
         text-align: center;
       }
     </style>
-
-    <!-- Google Tag -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TQ3VD7NPV"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-5TQ3VD7NPV');
-    </script>
   </head>
 
   <body>
@@ -95,9 +85,20 @@
           </div>
           <button type="submit" class="btn btn-primary w-100">Login</button>
         </form>
+
+        <!-- Tambahkan tombol untuk WhatsAuth -->
+        <div class="text-center mt-3">
+          <button
+            class="btn btn-outline-success w-100"
+            onclick="redirectToWhatsAuth()"
+          >
+            Login with WhatsAuth
+          </button>
+        </div>
+
         <p class="text-center mt-3">
           Don't have an account? <a href="register.html" id="registerLink">Register</a>
-        </p>
+        </p>     
         <p class="text-center" id="error-message"></p>
       </div>
     </div>
@@ -132,16 +133,10 @@
           console.log("Response from server:", data);
 
           if (response.ok && data.token) {
-            // Menyimpan token ke localStorage
             localStorage.setItem("authToken", data.token);
-
-            // Simpan data pengguna (optional)
             localStorage.setItem("user", JSON.stringify(data.user));
-
-            // Redirect ke halaman home setelah login berhasil
-            window.location.href = "index.html"; // Atau halaman tujuan lainnya
+            window.location.href = "index.html";
           } else {
-            // Menampilkan pesan error jika login gagal
             errorMessage.textContent = data.message || "Login failed";
           }
         } catch (error) {
@@ -149,6 +144,11 @@
           errorMessage.textContent = "Login failed: An error occurred";
         }
       });
+
+      // Fungsi untuk redirect ke login WhatsAuth
+      function redirectToWhatsAuth() {
+        window.location.href = "loginn/whatsauth.html"; // Ganti dengan path aktual Anda
+      }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
