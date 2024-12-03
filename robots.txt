@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://satsetin.github.io/sitemap.xml 
