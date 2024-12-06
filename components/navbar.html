@@ -9,6 +9,7 @@
       rel="stylesheet"
     />
     <style>
+      /* Custom Styles for Navbar */
       .navbar {
         transition: background-color 0.3s ease;
       }
@@ -59,29 +60,14 @@
 
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="home.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="product.html">Product</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="https://satsetin.github.io/map/"
-                  >Map</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="cart.html">
-                  Cart
-                  <span id="cart-item-count" class="badge bg-warning">0</span>
-                </a>
-              </li>
-              <!-- Dynamic Login/Logout Button -->
+              <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+              <li class="nav-item"><a class="nav-link" href="product.html">Product</a></li>
+              <li class="nav-item"><a class="nav-link" href="https://satsetin.github.io/map/">Map</a></li>
+              <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+              <!-- Login/Logout Link -->
               <li class="nav-item" id="auth-link">
-                <a class="nav-link" id="login-link"></a>
+                <a class="nav-link" href="login.html" id="login-link">Login</a>
               </li>
             </ul>
           </div>
@@ -89,24 +75,28 @@
       </nav>
     </header>
 
-    <!-- Script to update navbar -->
+    <!-- Script untuk mengganti Login/Logout berdasarkan status login -->
     <script>
-      function updateNavbar() {
-        const authToken = localStorage.getItem("authToken");
+      // Memeriksa apakah user sudah login dengan memeriksa token
+      function checkLoginStatus() {
+        const authToken = localStorage.getItem("authToken"); // Mengambil token dari localStorage
         const loginLink = document.getElementById("login-link");
 
+        // Jika ada token, ganti link Login menjadi Logout
         if (authToken) {
           loginLink.textContent = "Logout";
-          loginLink.href = "logout.html";
+          loginLink.href = "logout.html"; // Tombol Logout mengarah ke logout.html
         } else {
           loginLink.textContent = "Login";
-          loginLink.href = "login.html";
+          loginLink.href = "login.html"; // Tombol Login mengarah ke login.html
         }
       }
 
-      window.onload = updateNavbar;
+      // Jalankan fungsi ketika halaman dimuat
+      window.onload = checkLoginStatus;
     </script>
 
+    <!-- Bootstrap JS (Popper & Bootstrap Bundle) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
   </body>
