@@ -75,33 +75,35 @@
 
           <!-- Menu navigasi -->
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto" id="navbar-items">
+              <!-- Menu yang selalu ada -->
               <li class="nav-item">
                 <a class="nav-link" href="home.html">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="about.html">About</a>
               </li>
-              <li class="nav-item">
+
+              <!-- Menu yang hanya muncul jika user sudah login -->
+              <li class="nav-item" class="product-link" style="display: none">
                 <a class="nav-link" href="product.html">Product</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" class="map-link" style="display: none">
                 <a class="nav-link" href="https://satsetin.github.io/map/"
                   >Map</a
                 >
               </li>
-              <!-- Cart item counter -->
-              <li class="nav-item">
+              <li class="nav-item" class="cart-link" style="display: none">
                 <a class="nav-link" href="cart.html">
                   Cart
                   <span id="cart-item-count" class="badge bg-warning">0</span>
                   <!-- Cart Badge -->
                 </a>
               </li>
-              <div id="navbar-placeholder"></div>
+
               <!-- Dynamic Login/Logout Button -->
               <li class="nav-item" id="auth-link">
-                <a class="nav-link" href="#" id="login-link">Login</a>
+                <a class="nav-link" href="login.html" id="login-link">Login</a>
               </li>
             </ul>
           </div>
@@ -110,24 +112,16 @@
     </header>
 
     <script>
-      // Simulasi cek status login
-      const isLoggedIn = localStorage.getItem("isLoggedIn"); // Ganti sesuai dengan status login yang sesuai
+      // Memeriksa status login berdasarkan token
+      const token = localStorage.getItem("jwt_token");
 
-      // Menyesuaikan navbar berdasarkan status login
+      // Elemen-elemen menu yang hanya muncul jika sudah login
+      const productLink = document.querySelector(".product-link");
+      const mapLink = document.querySelector(".map-link");
+      const cartLink = document.querySelector(".cart-link");
       const authLink = document.getElementById("auth-link");
       const loginLink = document.getElementById("login-link");
       const cartItemCount = document.getElementById("cart-item-count");
-
-      if (isLoggedIn) {
-        // Jika pengguna sudah login, ganti 'Login' dengan 'Logout'
-        loginLink.textContent = "Logout";
-        loginLink.href = "#"; // Hapus href agar tidak redirect ke login.html
-        loginLink.onclick = logout; // Fungsi logout akan dipanggil
-      } else {
-        // Jika pengguna belum login, tetap tampilkan 'Login'
-        loginLink.textContent = "Login";
-        loginLink.href = "login.html"; // Tautkan ke halaman login
-      }
 
       // Fungsi untuk menghitung jumlah item dalam cart
       function updateCartItemCount() {
@@ -139,17 +133,46 @@
         cartItemCount.textContent = totalItems > 0 ? totalItems : 0;
       }
 
-      // Panggil fungsi untuk memperbarui jumlah cart setiap kali halaman dimuat
-      window.onload = updateCartItemCount;
+      // Update tampilan navbar berdasarkan status login
+      if (token) {
+        // Jika ada token, berarti pengguna sudah login
+        loginLink.textContent = "Logout";
+        loginLink.href = "#"; // Tidak perlu arahkan ke halaman login lagi
+        loginLink.onclick = logout; // Fungsi logout akan dipanggil
 
-      // Fungsi logout untuk menghapus token dan redirect ke halaman login
+        // Menampilkan menu yang hanya ada setelah login
+        productLink.style.display = "block";
+        mapLink.style.display = "block";
+        cartLink.style.display = "block";
+
+        // Menyembunyikan link login
+        authLink.style.display = "none";
+
+        // Memperbarui jumlah item dalam cart saat halaman dimuat
+        window.onload = updateCartItemCount;
+      } else {
+        // Jika tidak ada token, tampilkan tombol login
+        loginLink.textContent = "Login";
+        loginLink.href = "login.html"; // Arahkan ke halaman login
+
+        // Menyembunyikan menu yang hanya ada setelah login
+        productLink.style.display = "none";
+        mapLink.style.display = "none";
+        cartLink.style.display = "none";
+
+        // Menyembunyikan tombol logout
+        authLink.style.display = "block";
+      }
+
+      // Fungsi logout
       function logout(event) {
-        event.preventDefault(); // Menghindari refresh halaman ketika tombol diklik
+        event.preventDefault(); // Menghindari refresh halaman saat tombol diklik
+
         // Hapus token dan status login dari localStorage
         localStorage.removeItem("jwt_token");
         localStorage.removeItem("isLoggedIn");
 
-        // Redirect ke halaman login
+        // Alihkan pengguna ke halaman login
         window.location.href = "login.html";
       }
     </script>
