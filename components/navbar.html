@@ -149,7 +149,8 @@
       }
 
       // Fungsi untuk logout
-      function logout() {
+      function logout(event) {
+        event.preventDefault();
         localStorage.removeItem("authToken");  // Hapus token dari localStorage
         localStorage.removeItem("user");  // Hapus data pengguna dari localStorage
         window.location.href = 'login.html';  // Redirect ke halaman login setelah logout
