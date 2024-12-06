@@ -83,10 +83,6 @@
               <li class="nav-item">
                 <a class="nav-link" href="logout.html">Logout</a>
               </li>
-              <!-- Login/Logout Link -->
-              <li class="nav-item" id="auth-link">
-                <a class="nav-link" href="login.html" id="login-link">Login</a>
-              </li>
             </ul>
           </div>
         </div>
@@ -98,16 +94,6 @@
       // Memeriksa apakah user sudah login dengan memeriksa token
       function checkLoginStatus() {
         const authToken = localStorage.getItem("authToken"); // Mengambil token dari localStorage
-        const loginLink = document.getElementById("login-link");
-
-        // Jika ada token, ganti link Login menjadi Logout
-        if (authToken) {
-          loginLink.textContent = "Logout";
-          loginLink.href = "logout.html"; // Tombol Logout mengarah ke logout.html
-        } else {
-          loginLink.textContent = "Login";
-          loginLink.href = "login.html"; // Tombol Login mengarah ke login.html
-        }
       }
 
       // Jalankan fungsi ketika halaman dimuat
