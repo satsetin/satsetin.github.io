@@ -17,14 +17,25 @@
     </div>
 
     <script>
-      // Fungsi Logout di frontend
-function logout() {
-    // Menghapus token JWT dari localStorage
-    localStorage.removeItem("token");
-
-    // Redirect ke halaman login atau homepage
-    window.location.href = "/login.html"; // Ganti dengan halaman yang sesuai
-}
+        function logout() {
+            // Menghapus token dari localStorage
+            localStorage.removeItem("token");
+        
+            // Mengirim request logout ke server
+            fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Redirect ke halaman login
+                window.location.href = "/login.html"; // Ganti dengan halaman login yang sesuai
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        
     </script>
   </body>
 </html>
