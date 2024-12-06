@@ -17,11 +17,14 @@
     </div>
 
     <script>
-      // Menghapus status login dari localStorage
-      localStorage.removeItem("isLoggedIn");
+      // Fungsi Logout di frontend
+function logout() {
+    // Menghapus token JWT dari localStorage
+    localStorage.removeItem("token");
 
-      // Redirect ke halaman utama setelah logout
-      window.location.href = "index.html"; // Ganti dengan halaman utama Anda
+    // Redirect ke halaman login atau homepage
+    window.location.href = "/login.html"; // Ganti dengan halaman yang sesuai
+}
     </script>
   </body>
 </html>
