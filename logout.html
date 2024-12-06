@@ -18,10 +18,10 @@
 
     <script>
         function logout() {
-            // Menghapus token dari localStorage
+            // Menghapus token dari localStorage atau cookies
             localStorage.removeItem("token");
         
-            // Mengirim request logout ke server
+            // Mengirim request ke server untuk logout
             fetch('/logout', {
                 method: 'POST',
                 headers: {
@@ -30,8 +30,8 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Redirect ke halaman login
-                window.location.href = "/login.html"; // Ganti dengan halaman login yang sesuai
+                // Jika logout berhasil, arahkan ke halaman login
+                window.location.href = "/login.html";  // Ganti dengan URL halaman login Anda
             })
             .catch(error => console.error('Error:', error));
         }
