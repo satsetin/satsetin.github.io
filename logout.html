@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+</head>
+<body>
+    <button id="logoutBtn">Logout</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/gocroot/dist/js/gocroot.min.js"></script>
+    <script>
+        // Menangani klik pada tombol logout
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            fetch('http://localhost:8080/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data); // Menampilkan pesan sukses dari server
+                // Redirect atau refresh halaman setelah logout
+                window.location.href = '/'; // Ganti sesuai kebutuhan
+            })
+            .catch(error => {
+                console.error('Error during logout:', error);
+                alert('Logout failed!');
+            });
+        });
+    </script>
+</body>
+</html>
