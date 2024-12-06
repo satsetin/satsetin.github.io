@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SatsetIn - Modern Navbar</title>
+    <title>SatsetIn - Home</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -75,29 +75,32 @@
 
           <!-- Menu navigasi -->
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto" id="navbar-menu">
+            <ul class="navbar-nav ms-auto">
               <li class="nav-item">
                 <a class="nav-link" href="home.html">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="about.html">About</a>
               </li>
-              <!-- Menu yang ditampilkan hanya jika sudah login -->
-              <li class="nav-item" id="product-link" style="display: none;">
+              <!-- Menu yang hanya muncul saat login -->
+              <li class="nav-item" id="product-link" style="display:none;">
                 <a class="nav-link" href="product.html">Product</a>
               </li>
-              <li class="nav-item" id="map-link" style="display: none;">
+              <li class="nav-item" id="map-link" style="display:none;">
                 <a class="nav-link" href="https://satsetin.github.io/map/">Map</a>
               </li>
-              <li class="nav-item" id="cart-link" style="display: none;">
+              <li class="nav-item" id="cart-link" style="display:none;">
                 <a class="nav-link" href="cart.html">
-                  Cart
-                  <span id="cart-item-count" class="badge bg-warning">0</span> <!-- Cart Badge -->
+                  Cart <span id="cart-item-count" class="badge bg-warning">0</span> <!-- Cart Badge -->
                 </a>
               </li>
-              <!-- Link login/logout -->
+              <!-- Dynamic Login/Logout Button -->
               <li class="nav-item" id="auth-link">
                 <a class="nav-link" href="login.html" id="login-link">Login</a>
+              </li>
+              <!-- Display User's Name if Logged In -->
+              <li class="nav-item" id="user-name" style="display:none;">
+                <span class="nav-link" id="user-name-span"></span>
               </li>
             </ul>
           </div>
@@ -105,57 +108,54 @@
       </nav>
     </header>
 
+    <!-- Add some custom JS for Navbar -->
     <script>
-      // Fungsi untuk menghitung jumlah item dalam cart
-      function updateCartItemCount() {
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const totalItems = cart.reduce(
-          (total, item) => total + item.quantity,
-          0
-        );
-        document.getElementById("cart-item-count").textContent = totalItems > 0 ? totalItems : 0;
-      }
-
-      // Fungsi untuk memperbarui navbar berdasarkan status login
+      // Memeriksa apakah pengguna sudah login (token ada di localStorage)
       function updateNavbar() {
-        const isLoggedIn = localStorage.getItem("jwt_token"); // Jika token ada, pengguna sudah login
-        const navbarMenu = document.getElementById("navbar-menu");
+        const authToken = localStorage.getItem("authToken"); // Token dari localStorage
+        const user = JSON.parse(localStorage.getItem("user")); // Data pengguna dari localStorage
         const loginLink = document.getElementById("login-link");
+        const userNameElement = document.getElementById("user-name");
+        const userNameSpan = document.getElementById("user-name-span");
 
-        if (isLoggedIn) {
-          // Jika pengguna sudah login, tampilkan menu tambahan
+        // Menyesuaikan menu navbar berdasarkan status login
+        if (authToken) {
+          // Jika token ada, berarti pengguna sudah login
           document.getElementById("product-link").style.display = "block";
           document.getElementById("map-link").style.display = "block";
           document.getElementById("cart-link").style.display = "block";
+          
+          // Tampilkan nama pengguna di navbar
+          userNameElement.style.display = "block";
+          userNameSpan.textContent = `Welcome, ${user.name}`; // Menampilkan nama pengguna
 
           // Ganti Login dengan Logout
           loginLink.textContent = "Logout";
-          loginLink.onclick = logout;
+          loginLink.href = "#";  // Ganti href menjadi # karena logout dilakukan melalui JS
+          loginLink.onclick = logout;  // Menambahkan fungsi logout saat klik
         } else {
-          // Jika pengguna belum login, hanya tampilkan Home dan About
+          // Jika token tidak ada, hanya tampilkan Home, About, dan Login
           document.getElementById("product-link").style.display = "none";
           document.getElementById("map-link").style.display = "none";
           document.getElementById("cart-link").style.display = "none";
-
+          
+          // Sembunyikan nama pengguna
+          userNameElement.style.display = "none";
+          
           // Ganti Logout dengan Login
           loginLink.textContent = "Login";
           loginLink.href = "login.html";
         }
-
-        // Perbarui jumlah cart saat halaman dimuat
-        updateCartItemCount();
       }
 
       // Fungsi untuk logout
-      function logout(event) {
-        event.preventDefault(); // Menghindari navigasi default
-        // Hapus token dari localStorage
-        localStorage.removeItem("jwt_token");
-        // Redirect ke halaman login
-        window.location.href = "login.html";
+      function logout() {
+        localStorage.removeItem("authToken");  // Hapus token dari localStorage
+        localStorage.removeItem("user");  // Hapus data pengguna dari localStorage
+        window.location.href = 'login.html';  // Redirect ke halaman login setelah logout
       }
 
-      // Panggil fungsi untuk memperbarui navbar saat halaman dimuat
+      // Panggil updateNavbar ketika halaman dimuat
       window.onload = updateNavbar;
     </script>
 
