@@ -21,7 +21,7 @@
             // Menghapus token dari localStorage atau cookies
             localStorage.removeItem("token");
         
-            // Mengirim request ke server untuk logout
+            // Kirim request logout ke backend
             fetch('/logout', {
                 method: 'POST',
                 headers: {
@@ -30,10 +30,17 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Jika logout berhasil, arahkan ke halaman login
-                window.location.href = "/login.html";  // Ganti dengan URL halaman login Anda
+                if (data.message) {
+                    console.log(data.message); // Misalnya: Successfully logged out
+                    // Arahkan pengguna ke halaman login setelah logout
+                    window.location.href = "/login.html"; // Ubah URL jika diperlukan
+                }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error logging out:', error);
+                // Jika terjadi error, tetap arahkan ke halaman login
+                window.location.href = "/login.html";
+            });
         }
         
     </script>
