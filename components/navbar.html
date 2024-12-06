@@ -86,34 +86,29 @@
                 <a class="nav-link" href="product.html">Product</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="https://satsetin.github.io/map/">Map</a>
+                <a class="nav-link" href="https://satsetin.github.io/map/"
+                  >Map</a
+                >
               </li>
               <!-- Cart item counter -->
               <li class="nav-item">
                 <a class="nav-link" href="cart.html">
                   Cart
-                  <span id="cart-item-count" class="badge bg-warning">0</span> <!-- Cart Badge -->
+                  <span id="cart-item-count" class="badge bg-warning">0</span>
+                  <!-- Cart Badge -->
                 </a>
               </li>
               <div id="navbar-placeholder"></div>
               <!-- Dynamic Login/Logout Button -->
               <li class="nav-item" id="auth-link">
-                <a class="nav-link" href="login.html" id="login-link">Login</a>
+                <a class="nav-link" href="#" id="login-link">Login</a>
               </li>
             </ul>
           </div>
-          <!-- Dynamic Login/Logout Button -->
-          <li class="nav-item" id="auth-link">
-            <a class="nav-link" href="logout.html" id="logout-link">Logout</a>
-          </li>
-        </ul>
-      </div>
-      <div id="navbar-placeholder"></div>
         </div>
       </nav>
     </header>
 
-    <!-- Add some custom CSS animation -->
     <script>
       // Simulasi cek status login
       const isLoggedIn = localStorage.getItem("isLoggedIn"); // Ganti sesuai dengan status login yang sesuai
@@ -126,7 +121,8 @@
       if (isLoggedIn) {
         // Jika pengguna sudah login, ganti 'Login' dengan 'Logout'
         loginLink.textContent = "Logout";
-        loginLink.href = "logout.html"; // Tautkan ke halaman logout
+        loginLink.href = "#"; // Hapus href agar tidak redirect ke login.html
+        loginLink.onclick = logout; // Fungsi logout akan dipanggil
       } else {
         // Jika pengguna belum login, tetap tampilkan 'Login'
         loginLink.textContent = "Login";
@@ -145,6 +141,17 @@
 
       // Panggil fungsi untuk memperbarui jumlah cart setiap kali halaman dimuat
       window.onload = updateCartItemCount;
+
+      // Fungsi logout untuk menghapus token dan redirect ke halaman login
+      function logout(event) {
+        event.preventDefault(); // Menghindari refresh halaman ketika tombol diklik
+        // Hapus token dan status login dari localStorage
+        localStorage.removeItem("jwt_token");
+        localStorage.removeItem("isLoggedIn");
+
+        // Redirect ke halaman login
+        window.location.href = "login.html";
+      }
     </script>
 
     <!-- Bootstrap JS (Popper & Bootstrap Bundle) -->
