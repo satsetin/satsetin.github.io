@@ -75,33 +75,27 @@
 
           <!-- Menu navigasi -->
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto" id="navbar-items">
-              <!-- Menu yang selalu ada -->
+            <ul class="navbar-nav ms-auto" id="navbar-links">
+              <!-- Menu yang muncul saat tidak login -->
               <li class="nav-item">
                 <a class="nav-link" href="home.html">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="about.html">About</a>
               </li>
-
-              <!-- Menu yang hanya muncul jika user sudah login -->
-              <li class="nav-item" class="product-link" style="display: none">
+              <!-- Menu yang muncul saat login -->
+              <li class="nav-item" id="product-link" style="display: none;">
                 <a class="nav-link" href="product.html">Product</a>
               </li>
-              <li class="nav-item" class="map-link" style="display: none">
-                <a class="nav-link" href="https://satsetin.github.io/map/"
-                  >Map</a
-                >
+              <li class="nav-item" id="map-link" style="display: none;">
+                <a class="nav-link" href="https://satsetin.github.io/map/">Map</a>
               </li>
-              <li class="nav-item" class="cart-link" style="display: none">
+              <li class="nav-item" id="cart-link" style="display: none;">
                 <a class="nav-link" href="cart.html">
                   Cart
                   <span id="cart-item-count" class="badge bg-warning">0</span>
-                  <!-- Cart Badge -->
                 </a>
               </li>
-
-              <!-- Dynamic Login/Logout Button -->
               <li class="nav-item" id="auth-link">
                 <a class="nav-link" href="login.html" id="login-link">Login</a>
               </li>
@@ -112,16 +106,47 @@
     </header>
 
     <script>
-      // Memeriksa status login berdasarkan token
-      const token = localStorage.getItem("jwt_token");
+      // Cek jika ada token di localStorage
+      const token = localStorage.getItem('jwt_token'); // Ambil token JWT dari localStorage
 
-      // Elemen-elemen menu yang hanya muncul jika sudah login
-      const productLink = document.querySelector(".product-link");
-      const mapLink = document.querySelector(".map-link");
-      const cartLink = document.querySelector(".cart-link");
-      const authLink = document.getElementById("auth-link");
-      const loginLink = document.getElementById("login-link");
-      const cartItemCount = document.getElementById("cart-item-count");
+      // Elemen yang ada di navbar
+      const productLink = document.getElementById('product-link');
+      const mapLink = document.getElementById('map-link');
+      const cartLink = document.getElementById('cart-link');
+      const loginLink = document.getElementById('login-link');
+      const authLink = document.getElementById('auth-link');
+      const cartItemCount = document.getElementById('cart-item-count');
+
+      // Jika token ada, tampilkan menu yang hanya tersedia setelah login
+      if (token) {
+        // Menampilkan menu yang hanya ada setelah login
+        productLink.style.display = 'block';
+        mapLink.style.display = 'block';
+        cartLink.style.display = 'block';
+
+        // Menyembunyikan link login dan menggantinya dengan logout
+        loginLink.textContent = 'Logout';
+        loginLink.href = '#';
+        loginLink.onclick = logout; // Menghubungkan logout dengan fungsi logout
+      } else {
+        // Menyembunyikan menu login dan menampilkan hanya home dan about
+        loginLink.textContent = 'Login';
+        loginLink.href = 'login.html';
+        productLink.style.display = 'none';
+        mapLink.style.display = 'none';
+        cartLink.style.display = 'none';
+      }
+
+      // Fungsi untuk logout
+      function logout(event) {
+        event.preventDefault();  // Menghindari refresh halaman
+        // Hapus token dari localStorage
+        localStorage.removeItem('jwt_token');
+        localStorage.removeItem('isLoggedIn');
+
+        // Redirect ke halaman login
+        window.location.href = "login.html";
+      }
 
       // Fungsi untuk menghitung jumlah item dalam cart
       function updateCartItemCount() {
@@ -133,48 +158,8 @@
         cartItemCount.textContent = totalItems > 0 ? totalItems : 0;
       }
 
-      // Update tampilan navbar berdasarkan status login
-      if (token) {
-        // Jika ada token, berarti pengguna sudah login
-        loginLink.textContent = "Logout";
-        loginLink.href = "#"; // Tidak perlu arahkan ke halaman login lagi
-        loginLink.onclick = logout; // Fungsi logout akan dipanggil
-
-        // Menampilkan menu yang hanya ada setelah login
-        productLink.style.display = "block";
-        mapLink.style.display = "block";
-        cartLink.style.display = "block";
-
-        // Menyembunyikan link login
-        authLink.style.display = "none";
-
-        // Memperbarui jumlah item dalam cart saat halaman dimuat
-        window.onload = updateCartItemCount;
-      } else {
-        // Jika tidak ada token, tampilkan tombol login
-        loginLink.textContent = "Login";
-        loginLink.href = "login.html"; // Arahkan ke halaman login
-
-        // Menyembunyikan menu yang hanya ada setelah login
-        productLink.style.display = "none";
-        mapLink.style.display = "none";
-        cartLink.style.display = "none";
-
-        // Menyembunyikan tombol logout
-        authLink.style.display = "block";
-      }
-
-      // Fungsi logout
-      function logout(event) {
-        event.preventDefault(); // Menghindari refresh halaman saat tombol diklik
-
-        // Hapus token dan status login dari localStorage
-        localStorage.removeItem("jwt_token");
-        localStorage.removeItem("isLoggedIn");
-
-        // Alihkan pengguna ke halaman login
-        window.location.href = "login.html";
-      }
+      // Panggil fungsi untuk memperbarui jumlah cart setiap kali halaman dimuat
+      window.onload = updateCartItemCount;
     </script>
 
     <!-- Bootstrap JS (Popper & Bootstrap Bundle) -->
