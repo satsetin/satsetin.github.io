@@ -64,7 +64,9 @@
                 <a class="nav-link" href="product.html">Product</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="https://satsetin.github.io/map/">Map</a>
+                <a class="nav-link" href="https://satsetin.github.io/map/"
+                  >Map</a
+                >
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="cart.html">Cart</a>
@@ -72,8 +74,14 @@
               <li class="nav-item" id="loginItem">
                 <a class="nav-link" href="login.html">Login</a>
               </li>
-              <li class="nav-item" id="logoutItem" style="display: none;">
-                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</a>
+              <li class="nav-item" id="logoutItem" style="display: none">
+                <a
+                  class="nav-link"
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#logoutModal"
+                  >Logout</a
+                >
               </li>
             </ul>
           </div>
@@ -82,19 +90,36 @@
     </header>
 
     <!-- Logout Confirmation Modal -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="logoutModal"
+      tabindex="-1"
+      aria-labelledby="logoutModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
-          <div class="modal-body">
-            Are you sure you want to logout?
-          </div>
+          <div class="modal-body">Are you sure you want to logout?</div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger" id="confirmLogout">Logout</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn btn-danger" id="confirmLogout">
+              Logout
+            </button>
           </div>
         </div>
       </div>
@@ -126,11 +151,13 @@
       }
 
       // Ketika tombol logout diklik, jalankan logout
-      document.getElementById("confirmLogout").addEventListener("click", logout);
+      document
+        .getElementById("confirmLogout")
+        .addEventListener("click", logout);
 
       // Jalankan fungsi ketika halaman dimuat
-      document.addEventListener("DOMContentLoaded", function() {
-        checkLoginStatus();  // Jalankan pemeriksaan status login setelah DOM sepenuhnya dimuat
+      document.addEventListener("DOMContentLoaded", function () {
+        checkLoginStatus(); // Jalankan pemeriksaan status login setelah DOM sepenuhnya dimuat
       });
     </script>
 
