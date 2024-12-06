@@ -59,7 +59,8 @@
           </button>
 
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto" id="navbarMenu">
+              <!-- Menu Items -->
               <li class="nav-item">
                 <a class="nav-link" href="home.html">Home</a>
               </li>
@@ -70,17 +71,16 @@
                 <a class="nav-link" href="product.html">Product</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="https://satsetin.github.io/map/"
-                  >Map</a
-                >
+                <a class="nav-link" href="https://satsetin.github.io/map/">Map</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="cart.html">Cart</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="login.html">login</a>
+              <!-- These menu items will be toggled -->
+              <li class="nav-item" id="loginItem">
+                <a class="nav-link" href="login.html">Login</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" id="logoutItem" style="display: none;">
                 <a class="nav-link" href="logout.html">Logout</a>
               </li>
             </ul>
@@ -90,10 +90,20 @@
     </header>
 
     <!-- Script untuk mengganti Login/Logout berdasarkan status login -->
-    <script> 
-      // Memeriksa apakah user sudah login dengan memeriksa token
+    <script>
       function checkLoginStatus() {
         const authToken = localStorage.getItem("authToken"); // Mengambil token dari localStorage
+
+        // Menampilkan menu yang sesuai berdasarkan status login
+        if (authToken) {
+          // Jika sudah login, sembunyikan Login dan tampilkan Logout
+          document.getElementById("loginItem").style.display = "none";
+          document.getElementById("logoutItem").style.display = "block";
+        } else {
+          // Jika belum login, tampilkan Login dan sembunyikan Logout
+          document.getElementById("loginItem").style.display = "block";
+          document.getElementById("logoutItem").style.display = "none";
+        }
       }
 
       // Jalankan fungsi ketika halaman dimuat
