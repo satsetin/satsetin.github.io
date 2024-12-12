@@ -73,7 +73,7 @@
           return null;
         };
 
-        const token = localStorage.getItem("authToken") || getCookie("login");
+        const token = getCookie("login");
 
         if (!token) {
           alert("You need to log in first");

@@ -134,7 +134,15 @@
           console.log("Response from server:", data);
 
           if (response.ok && data.token) {
-            localStorage.setItem("authToken", data.token);
+            const setCookie = (name, value, days) => {
+              const expires = new Date();
+              expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+              document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/; secure; samesite=Lax`;
+            };
+
+            // Set cookie authToken dengan nilai '12345' yang kadaluarsa dalam 7 hari
+            setCookie("authToken", data.token, 7);
+
             localStorage.setItem("user", JSON.stringify(data.user));
             window.location.href = "home.html";
           } else {
