@@ -86,7 +86,9 @@
                 <a class="nav-link" href="product.html">Product</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="https://satsetin.github.io/map/">Map</a>
+                <a class="nav-link" href="https://satsetin.github.io/map/"
+                  >Map</a
+                >
               </li>
               <!-- Cart item counter -->
               <li class="nav-item">
@@ -101,7 +103,7 @@
                 <a class="nav-link" href="login.html" id="login-link">Login</a>
               </li>
               <!-- Tombol Logout -->
-              <li class="nav-item" id="logout-link-item" style="display: none;">
+              <li class="nav-item" id="logout-link-item" style="display: none">
                 <a class="nav-link" href="#" id="logout-link">Logout</a>
               </li>
             </ul>
@@ -139,7 +141,10 @@
       // Fungsi untuk memperbarui jumlah item dalam keranjang
       function updateCartItemCount() {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        const totalItems = cart.reduce(
+          (total, item) => total + item.quantity,
+          0
+        );
         cartItemCount.textContent = totalItems > 0 ? totalItems : 0;
       }
 
@@ -151,7 +156,8 @@
         event.preventDefault(); // Mencegah reload halaman saat tombol Logout diklik
 
         // Hapus token dari cookie
-        document.cookie = "login=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie =
+          "login=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
         // Redirect ke halaman login
         window.location.href = "login.html";

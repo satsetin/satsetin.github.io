@@ -86,7 +86,7 @@
           <button type="submit" class="btn btn-primary w-100">Login</button>
         </form>
 
-        <!-- Tambahkan tombol untuk WhatsAuth -->
+        <!-- Tombol untuk WhatsAuth -->
         <div class="text-center mt-3">
           <button
             class="btn btn-outline-success w-100"
@@ -143,7 +143,7 @@
               document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/; secure; samesite=Lax`;
             };
 
-            // Set cookie authToken dengan nilai '12345' yang kadaluarsa dalam 7 hari
+            // Set cookie authToken
             setCookie("login", data.token, 7);
 
             localStorage.setItem("user", JSON.stringify(data.user));
