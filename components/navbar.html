@@ -101,7 +101,7 @@
                 <a class="nav-link" href="login.html" id="login-link">Login</a>
               </li>
               <!-- Tombol Logout -->
-              <li class="nav-item" id="logout-link-item">
+              <li class="nav-item" id="logout-link-item" style="display: none;">
                 <a class="nav-link" href="#" id="logout-link">Logout</a>
               </li>
             </ul>
@@ -125,6 +125,10 @@
       const loginLinkItem = document.getElementById("login-link-item");
       const logoutLinkItem = document.getElementById("logout-link-item");
       const cartItemCount = document.getElementById("cart-item-count");
+
+      // Menampilkan Login/Logout berdasarkan status login
+      loginLinkItem.style.display = token ? "none" : "flex";
+      logoutLinkItem.style.display = token ? "flex" : "none";
 
       // Fungsi untuk memperbarui jumlah item dalam keranjang
       function updateCartItemCount() {
