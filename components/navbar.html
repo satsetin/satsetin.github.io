@@ -86,13 +86,16 @@
                 <a class="nav-link" href="product.html">Product</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="https://satsetin.github.io/map/">Map</a>
+                <a class="nav-link" href="https://satsetin.github.io/map/"
+                  >Map</a
+                >
               </li>
               <!-- Cart item counter -->
               <li class="nav-item">
                 <a class="nav-link" href="cart.html">
                   Cart
-                  <span id="cart-item-count" class="badge bg-warning">0</span> <!-- Badge Keranjang -->
+                  <span id="cart-item-count" class="badge bg-warning">0</span>
+                  <!-- Badge Keranjang -->
                 </a>
               </li>
               <!-- Tombol Login -->
@@ -100,7 +103,7 @@
                 <a class="nav-link" href="login.html" id="login-link">Login</a>
               </li>
               <!-- Tombol Logout -->
-              <li class="nav-item" id="logout-link-item" style="display: none;">
+              <li class="nav-item" id="logout-link-item" style="display: none">
                 <a class="nav-link" href="#" id="logout-link">Logout</a>
               </li>
             </ul>
@@ -110,21 +113,27 @@
     </header>
 
     <script>
-      // Cek status login dari localStorage
-      const isLoggedIn = localStorage.getItem("isLoggedIn"); // Ganti sesuai dengan status login yang sesuai
+      // Fungsi untuk membaca cookie
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+      }
 
-      // Menyesuaikan navbar berdasarkan status login
+      // Periksa apakah token ada di cookie
+      const jwtToken = getCookie("login"); // Ganti 'login' dengan nama cookie token yang sesuai
+
+      // Menyesuaikan navbar berdasarkan token di cookie
       const loginLinkItem = document.getElementById("login-link-item");
       const logoutLinkItem = document.getElementById("logout-link-item");
       const cartItemCount = document.getElementById("cart-item-count");
 
-      // Ubah tampilan tombol Login/Logout berdasarkan status login
-      if (isLoggedIn) {
-        // Jika pengguna sudah login, sembunyikan Login dan tampilkan Logout
+      if (jwtToken) {
+        // Jika token ada, sembunyikan Login dan tampilkan Logout
         loginLinkItem.style.display = "none";
         logoutLinkItem.style.display = "block";
       } else {
-        // Jika pengguna belum login, sembunyikan Logout dan tampilkan Login
+        // Jika token tidak ada, sembunyikan Logout dan tampilkan Login
         loginLinkItem.style.display = "block";
         logoutLinkItem.style.display = "none";
       }
@@ -132,21 +141,24 @@
       // Fungsi untuk memperbarui jumlah item dalam keranjang
       function updateCartItemCount() {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        const totalItems = cart.reduce(
+          (total, item) => total + item.quantity,
+          0
+        );
         cartItemCount.textContent = totalItems > 0 ? totalItems : 0;
       }
 
       // Panggil fungsi untuk memperbarui jumlah item keranjang saat halaman dimuat
       window.onload = updateCartItemCount;
 
-      // Fungsi logout untuk menghapus data pengguna dan mengarahkan ke halaman login
-      document.getElementById("logout-link").onclick = function(event) {
-        event.preventDefault();  // Mencegah reload halaman saat tombol Logout diklik
-        
-        // Hapus token dan status login dari localStorage
-        localStorage.removeItem('jwt_token');
-        localStorage.removeItem('isLoggedIn');
-        
+      // Fungsi logout untuk menghapus token dan mengarahkan ke halaman login
+      document.getElementById("logout-link").onclick = function (event) {
+        event.preventDefault(); // Mencegah reload halaman saat tombol Logout diklik
+
+        // Hapus token dari cookie
+        document.cookie =
+          "login=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
         // Redirect ke halaman login
         window.location.href = "login.html";
       };
