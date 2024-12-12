@@ -114,27 +114,26 @@
 
     <script>
       // Fungsi untuk membaca cookie
-      function getCookie(name) {
+      const getCookie = (name) => {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(";").shift();
-      }
-
-      // Periksa apakah token ada di cookie
-      const jwtToken = getCookie("login"); // Ganti 'login' dengan nama cookie token yang sesuai
+        return null;
+      };
+      const token = getCookie("login"); // Ganti 'login' dengan nama cookie token yang sesuai
 
       // Menyesuaikan navbar berdasarkan token di cookie
       const loginLinkItem = document.getElementById("login-link-item");
-      const logoutLinkItem = document.getElementById("logout-link-item");
+      const logoutLinkItem = document.getElementById("logout-link");
       const cartItemCount = document.getElementById("cart-item-count");
 
-      if (jwtToken) {
+      if (token) {
         // Jika token ada, sembunyikan Login dan tampilkan Logout
         loginLinkItem.style.display = "none";
-        logoutLinkItem.style.display = "block";
+        logoutLinkItem.style.display = "flex";
       } else {
         // Jika token tidak ada, sembunyikan Logout dan tampilkan Login
-        loginLinkItem.style.display = "block";
+        loginLinkItem.style.display = "flex";
         logoutLinkItem.style.display = "none";
       }
 
