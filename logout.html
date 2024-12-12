@@ -68,8 +68,8 @@
     document.addEventListener("DOMContentLoaded", function () {
       // Check login status
       function checkLoginStatus() {
-        const authToken = localStorage.getItem("authToken");
-        if (authToken) {
+        const login = localStorage.getItem("login");
+        if (login) {
           document.getElementById("loginItem").style.display = "none";
           document.getElementById("logoutItem").style.display = "block";
         } else {
@@ -80,7 +80,7 @@
 
       // Logout function
       function logout() {
-        localStorage.removeItem("authToken");
+        localStorage.removeItem("login");
         window.location.href = "home.html";
       }
 
