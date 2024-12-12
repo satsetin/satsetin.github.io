@@ -126,16 +126,6 @@
       const logoutLinkItem = document.getElementById("logout-link-item");
       const cartItemCount = document.getElementById("cart-item-count");
 
-      if (token) {
-        // Jika token ada, sembunyikan Login dan tampilkan Logout
-        loginLinkItem.style.display = "none";
-        logoutLinkItem.style.display = "flex";
-      } else {
-        // Jika token tidak ada, sembunyikan Logout dan tampilkan Login
-        loginLinkItem.style.display = "flex";
-        logoutLinkItem.style.display = "none";
-      }
-
       // Fungsi untuk memperbarui jumlah item dalam keranjang
       function updateCartItemCount() {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
