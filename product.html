@@ -35,15 +35,20 @@
       src="https://www.googletagmanager.com/gtag/js?id=G-5TQ3VD7NPV"
     ></script>
     <script>
-     
-        // Login function
-        document.getElementById("loginButton").addEventListener("click", function () {
-          // Simulasi login dan simpan informasi di localStorage
-          localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("userSession", "activeSessionData"); // Gantilah dengan data sesi yang sesuai
-          alert("You have successfully logged in!");
-          window.location.href = "product.html"; // Redirect ke halaman product setelah login
-        });
+    
+        // Memeriksa status login pengguna saat halaman dimuat
+        window.onload = function() {
+          const isLoggedIn = localStorage.getItem("isLoggedIn");
+          const userSession = localStorage.getItem("userSession");
+      
+          // Jika pengguna belum login
+          if (isLoggedIn === "false" || !userSession) {
+            alert("You must be logged in to access this page.");
+            window.location.href = "home.html"; // Redirect ke halaman home jika belum login
+          } else {
+            console.log("User is logged in, access granted to product page.");
+          }
+        };
       
       
       window.dataLayer = window.dataLayer || [];
