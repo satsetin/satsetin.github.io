@@ -145,10 +145,18 @@
         event.preventDefault(); // Mencegah reload halaman saat tombol Logout diklik
 
         // Hapus token dari cookie
-        document.cookie = "login=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "login=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // Menghapus cookie 'login'
 
-        // Redirect ke halaman login
-        window.location.href = "login.html";
+        // Pastikan cookie 'login' terhapus
+        const isLoggedOut = getCookie("login") === null; // Cek apakah cookie sudah terhapus
+
+        if (isLoggedOut) {
+          // Redirect ke halaman login
+          window.location.href = "login.html";
+        } else {
+          // Menangani error jika cookie tidak terhapus
+          alert("Gagal logout, coba lagi.");
+        }
       };
     </script>
 
