@@ -177,8 +177,9 @@
         updateCartItemCount();
       };
 
-      // Memeriksa status login pengguna
+        // Memeriksa status login pengguna
   window.onload = function() {
+    // Mengecek apakah status login adalah 'false' atau tidak ada sesi pengguna
     if (localStorage.getItem("isLoggedIn") === "false" || !localStorage.getItem("userSession")) {
       alert("You must be logged in to access this page.");
       window.location.href = "home.html"; // Redirect ke halaman home jika tidak login
