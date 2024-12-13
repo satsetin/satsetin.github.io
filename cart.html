@@ -55,10 +55,7 @@
     </style>
 
     <!-- Google Tag -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-79M4SYD1YR"
-    ></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-79M4SYD1YR"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -104,16 +101,10 @@
         <!-- Cart items will be displayed here -->
       </div>
       <div class="text-center mt-3">
-        <button class="btn btn-danger mt-3" onclick="clearCart()">
-          Clear Cart
-        </button>
-        <a href="checkout.html" class="btn btn-success mt-3"
-          >Proceed to Checkout</a
-        >
+        <button class="btn btn-danger mt-3" onclick="clearCart()">Clear Cart</button>
+        <a href="checkout.html" class="btn btn-success mt-3">Proceed to Checkout</a>
         <!-- Add Back to Products button -->
-        <a href="product.html" class="btn btn-outline-primary mt-3"
-          >Back to Products</a
-        >
+        <a href="product.html" class="btn btn-outline-primary mt-3">Back to Products</a>
       </div>
     </div>
 
@@ -163,12 +154,8 @@
                             <button class="btn btn-danger btn-sm" onclick="removeFromCart(${index})">Remove</button>
                         </div>
                         <p>Price: ${formatCurrency(item.price)}</p>
-                        <p>Quantity: <input type="number" value="${
-                          item.quantity
-                        }" min="1" onchange="updateQuantity(${index}, this.value)" class="form-control w-25"></p>
-                        <p>Total: ${formatCurrency(
-                          item.price * item.quantity
-                        )}</p>
+                        <p>Quantity: <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)" class="form-control w-25"></p>
+                        <p>Total: ${formatCurrency(item.price * item.quantity)}</p>
                     </div>
                 `;
           cartListContainer.appendChild(cartItem);
