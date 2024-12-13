@@ -179,6 +179,8 @@
 
      
         // Cek status login
+        localStorage.setItem("isLoggedIn", "true");
+
         function checkLoginStatus() {
           if (!localStorage.getItem("isLoggedIn")) {
             // Jika tidak login, redirect ke halaman home
