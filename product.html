@@ -35,22 +35,21 @@
       src="https://www.googletagmanager.com/gtag/js?id=G-5TQ3VD7NPV"
     ></script>
     <script>
+         // Memeriksa status login pengguna saat halaman dimuat
+  window.onload = function() {
+    // Ambil status login dan sesi pengguna
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const userSession = localStorage.getItem("userSession");
+
+    // Jika pengguna belum login
+    if (isLoggedIn !== "true" || !userSession) {
+      alert("You must be logged in to access this page.");
+      window.location.href = "home.html"; // Redirect ke halaman home jika belum login
+    } else {
+      console.log("User is logged in, access granted to product page.");
+    }
+  };
     
-        // Memeriksa status login pengguna saat halaman dimuat
-        window.onload = function() {
-          const isLoggedIn = localStorage.getItem("isLoggedIn");
-          const userSession = localStorage.getItem("userSession");
-      
-          // Jika pengguna belum login
-          if (isLoggedIn === "false" || !userSession) {
-            alert("You must be logged in to access this page.");
-            window.location.href = "login.html"; // Redirect ke halaman home jika belum login
-          } else {
-            console.log("User is logged in, access granted to product page.");
-          }
-        };
-      
-      
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);

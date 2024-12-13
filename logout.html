@@ -95,12 +95,14 @@
 
   <!-- Script -->
   <script>
-    // Logout function
-    document.getElementById("confirmLogout").addEventListener("click", function () {
-      localStorage.removeItem("userSession"); // Contoh untuk localStorage
-      alert("You have successfully logged out!");
-      window.location.href = "home.html"; // Redirect to home page
-    });
+    // Login function
+  document.getElementById("loginButton").addEventListener("click", function () {
+    // Simulasi login, simpan data session dan status login
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("userSession", "activeSessionData"); // Gantilah dengan data sesi yang sesuai
+    alert("You have successfully logged in!");
+    window.location.href = "product.html"; // Redirect ke halaman product setelah login
+  });
   </script>
 
   <!-- Bootstrap Dependencies -->
