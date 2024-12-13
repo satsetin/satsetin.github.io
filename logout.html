@@ -94,14 +94,25 @@
 
   <!-- Script -->
   <script>
-    // Logout function
+    // Fungsi Logout
     document.getElementById("confirmLogout").addEventListener("click", function () {
-      // Hapus status login
+      // Hapus status login dari localStorage
       localStorage.removeItem("isLoggedIn");
 
       // Redirect ke halaman home
       window.location.href = "home.html";
     });
+
+    // Fungsi untuk memeriksa status login
+    function checkLoginStatus() {
+      if (!localStorage.getItem("isLoggedIn")) {
+        // Jika tidak login, redirect ke halaman home
+        window.location.href = "home.html";
+      }
+    }
+
+    // Panggil fungsi cek login di halaman ini
+    checkLoginStatus();
   </script>
   
 
