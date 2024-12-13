@@ -52,18 +52,6 @@
   <!-- Script -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Check login status
-      function checkLoginStatus() {
-        const login = localStorage.getItem("login");
-        if (login) {
-          document.getElementById("loginItem").style.display = "none";
-          document.getElementById("logoutItem").style.display = "block";
-        } else {
-          document.getElementById("loginItem").style.display = "block";
-          document.getElementById("logoutItem").style.display = "none";
-        }
-      }
-
       // Logout function
       function logout() {
         localStorage.removeItem("login");
