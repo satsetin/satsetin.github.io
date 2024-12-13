@@ -30,19 +30,6 @@
       }
     </style>
 
-    <script>
-      function checkLoginStatus() {
-        // Cek apakah pengguna sudah login
-        if (!localStorage.getItem("isLoggedIn")) {
-          // Jika belum login, redirect ke halaman home
-          window.location.href = "home.html";
-        }
-      }
-  
-      // Cek status login saat halaman dimuat
-      checkLoginStatus();
-    </script>
-
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-5TQ3VD7NPV"
@@ -189,15 +176,8 @@
         loadProducts();
         updateCartItemCount();
       };
-
-        function logout() {
-      // Hapus status login
-      localStorage.removeItem("isLoggedIn");
-
-      // Redirect ke halaman home
-      window.location.href = "home.html";
-    }
-           
+     
+      
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
