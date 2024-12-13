@@ -190,16 +190,13 @@
         updateCartItemCount();
       };
 
-        function checkLoginStatus() {
-          // Periksa apakah status login disimpan di localStorage
-          if (!localStorage.getItem("isLoggedIn")) {
-            // Jika tidak login, redirect ke halaman home
-            window.location.href = "home.html";
-          }
-        }
-      
-        // Panggil fungsi cek login saat halaman dimuat
-        checkLoginStatus();
+      function logout() {
+        // Hapus status login
+        localStorage.removeItem("isLoggedIn");
+  
+        // Redirect ke halaman home
+        window.location.href = "home.html";
+      }
            
     </script>
 
