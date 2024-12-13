@@ -177,16 +177,6 @@
         updateCartItemCount();
       };
 
-      // Fungsi untuk memeriksa status login
-      function checkLoginStatus() {
-        if (!localStorage.getItem("isLoggedIn")) {
-          // Jika tidak login, redirect ke halaman home
-          window.location.href = "home.html";
-        }
-      }
-
-      // Panggil fungsi saat halaman dimuat
-      checkLoginStatus();
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
