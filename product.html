@@ -35,15 +35,17 @@
       src="https://www.googletagmanager.com/gtag/js?id=G-5TQ3VD7NPV"
     ></script>
     <script>
+     
+        // Login function
+        document.getElementById("loginButton").addEventListener("click", function () {
+          // Simulasi login dan simpan informasi di localStorage
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("userSession", "activeSessionData"); // Gantilah dengan data sesi yang sesuai
+          alert("You have successfully logged in!");
+          window.location.href = "product.html"; // Redirect ke halaman product setelah login
+        });
       
-        // Memeriksa status login pengguna
-  window.onload = function() {
-    // Mengecek apakah status login adalah 'false' atau tidak ada sesi pengguna
-    if (localStorage.getItem("isLoggedIn") === "false" || !localStorage.getItem("userSession")) {
-      alert("You must be logged in to access this page.");
-      window.location.href = "home.html"; // Redirect ke halaman home jika tidak login
-    }
-  };
+      
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
