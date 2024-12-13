@@ -30,6 +30,19 @@
       }
     </style>
 
+    <script>
+      function checkLoginStatus() {
+        // Cek apakah pengguna sudah login
+        if (!localStorage.getItem("isLoggedIn")) {
+          // Jika belum login, redirect ke halaman home
+          window.location.href = "home.html";
+        }
+      }
+  
+      // Cek status login saat halaman dimuat
+      checkLoginStatus();
+    </script>
+
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-5TQ3VD7NPV"
