@@ -9,17 +9,15 @@
       rel="stylesheet"
     />
     <style>
-        body {
-            background-image: url("public/images/home.jpg");
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-        }
-        
-
+      body {
+        background-image: url("public/images/home.jpg");
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
 
       .content {
         flex-grow: 1;
@@ -66,13 +64,18 @@
     </style>
 
     <!-- Google Tag -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TQ3VD7NPV"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-5TQ3VD7NPV"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-      gtag('config', 'G-5TQ3VD7NPV');
+      gtag("config", "G-5TQ3VD7NPV");
     </script>
   </head>
 
@@ -80,15 +83,15 @@
     <!-- Navbar -->
     <div id="navbar-placeholder"></div>
 
-   <!-- Main Content -->
-<div class="content">
-    <h2>Welcome to SatsetIn</h2>
-    <p>Enjoy the best food from all over the world!</p>
-    <a href="product.html">
-      <button class="btn btn-primary">Explore Now</button>
-    </a>
-  </div>
-  
+    <!-- Main Content -->
+    <div class="content">
+      <h2>Welcome to SatsetIn</h2>
+      <p>Enjoy the best food from all over the world!</p>
+      <a href="product.html">
+        <button class="btn btn-primary">Explore Now</button>
+      </a>
+    </div>
+
     <!-- Footer -->
     <div id="footer-placeholder"></div>
 
@@ -110,14 +113,13 @@
         })
         .catch((error) => console.error("Error loading footer:", error));
 
-        function login() {
-          // Simpan status login
-          localStorage.setItem("isLoggedIn", "true");
-      
-          // Redirect ke halaman produk atau dashboard
-          window.location.href = "product.html";
-        }
+      function login() {
+        // Simpan status login
+        localStorage.setItem("isLoggedIn", "true");
 
+        // Redirect ke halaman produk atau dashboard
+        window.location.href = "product.html";
+      }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
